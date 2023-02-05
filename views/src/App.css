@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+/* font-family: 'Do Hyeon', sans-serif; */
+
+/* Header */
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.Header .cate {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  color: black;
+}
+
+/* Content */
+
+.Content {
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top: 5%;
+}
+
+.ContentTitle .ContentName {
+  font-size: 50px;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.ContentTitle p {
+  margin-bottom: 80px;
+}
