@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain.Member;
+package SJU.SJUbaemin.Domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

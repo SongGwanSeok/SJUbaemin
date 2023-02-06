@@ -1,6 +1,6 @@
-package SJU.SJUbaemin.Domain.Order;
+package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Member.Member;
+import SJU.SJUbaemin.Domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 

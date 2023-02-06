@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain.Order;
+package SJU.SJUbaemin.Domain;
 
 public enum OrderStatus {
     ORDER, CANCEL

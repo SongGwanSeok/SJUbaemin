@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain.product;
+package SJU.SJUbaemin.Domain;
 
 import jakarta.persistence.*;
 

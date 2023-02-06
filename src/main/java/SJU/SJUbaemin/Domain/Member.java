@@ -1,5 +1,6 @@
-package SJU.SJUbaemin.Domain.Member;
+package SJU.SJUbaemin.Domain;
 
+import SJU.SJUbaemin.Domain.Address;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,14 @@ public class Member {
     @Embedded
     private Address address;
 
+    private String loginId;
+    private String loginPw;
 
+    public Member(String name, String email, String birthday, String phone, Address address) {
+        this.name = name;
+        this.email = email;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.address = address;
+    }
 }
