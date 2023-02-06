@@ -14,7 +14,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String userName;
+    private String name;
     private String email;
     private String birthday;
     private String phone;
@@ -22,8 +22,5 @@ public class Member {
     @Embedded
     private Address address;
 
-    public Member(String name, String email) {
-        this.userName = name;
-        this.email = email;
-    }
+
 }

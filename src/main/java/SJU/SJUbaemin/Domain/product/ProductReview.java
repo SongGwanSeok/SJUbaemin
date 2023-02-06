@@ -14,6 +14,7 @@ public class ProductReview {
     @GeneratedValue
     @Column(name = "product_id")
     private Long id;
+
     private String content;
     private String title;
     private String comment;
