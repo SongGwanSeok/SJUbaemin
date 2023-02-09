@@ -44,7 +44,6 @@ public class MemberServiceTest {
         Address address2 = new Address("서울시", "능동로", "209");
 
         Member member1 = new Member("A", "email@sju.ac.kr", "980902", "010-8552-6745", address1);
-
         Member member2 = new Member("A", "20003204@sju.ac.kr", "980905", "010-8784-7515", address2);
 
         //when

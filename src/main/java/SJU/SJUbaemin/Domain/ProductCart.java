@@ -1,7 +1,5 @@
 package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Member;
-import SJU.SJUbaemin.Domain.Product;
 import jakarta.persistence.*;
 
 @Entity

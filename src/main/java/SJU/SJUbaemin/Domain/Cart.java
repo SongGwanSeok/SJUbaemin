@@ -1,9 +1,6 @@
 package SJU.SJUbaemin.Domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -12,8 +9,11 @@ public class Cart {
 
     @Id
     @GeneratedValue
-    @Column(name = "member_id")
+    @Column(name = "cart_id")
     private Long id;
+
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+    private Member member;
 
     private Long quantity;
     private int price;

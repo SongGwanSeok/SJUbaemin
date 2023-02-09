@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Repository;
 
 import SJU.SJUbaemin.Domain.Product;
+import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,18 @@ public class ProductRepository {
 
     private final EntityManager em;
 
-    public void save(Product product) {
-        em.persist(product);
+    public Long save(Product product) {
+
+        if(product.getId() == null){
+            em.persist(product);
+        } else {
+            em.merge(product);
+        }
+        return product.getId();
+    }
+
+    public void delete(Product product) {
+        em.remove(product);
     }
 
     public Product findOne(Long productId) {
@@ -31,5 +42,13 @@ public class ProductRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+    //상품 타입으로 찾기
+    public List<Product> findByCategory(ProductType type) {
+        return em.createQuery("select p from Product p where p.type = :type", Product.class)
+                .setParameter("type", type)
+                .getResultList();
+    }
+
 
 }

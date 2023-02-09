@@ -20,6 +20,10 @@ public class Member {
     private String birthday;
     private String phone;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
     @Embedded
     private Address address;
 
