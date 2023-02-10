@@ -1,5 +1,5 @@
 import Header from "../components/Header.js";
-import Content from "../components/ContentTitle.js";
+import Content from "../components/PageInfo.js";
 import Footer from "../components/Footer.js";
 
 const Living = () => {

@@ -25,11 +25,51 @@
   margin-top: 5%;
 }
 
-.ContentTitle .ContentName {
+/* PageInfo */
+
+.PageInfo h1 {
   font-size: 50px;
   font-family: "Do Hyeon", sans-serif;
 }
 
-.ContentTitle p {
+.PageInfo p {
   margin-bottom: 80px;
+}
+
+/* ItemList */
+
+.ItemList {
+  text-align: right;
+}
+
+.ItemList .ControlMenu {
+  border: none;
+}
+
+/* .ItemList .ControlMenu option {
+  display: block;
+  padding: 100px;
+} */
+
+.ItemList .Item_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ItemList .Item_wrapper .Item {
+  width: 25%;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.ItemList .Item_wrapper .Item div .itemText {
+  text-align: center;
+}
+
+.ItemList .Item_wrapper .Item div {
+  cursor: pointer;
+}
+
+.ItemList .Item_wrapper .Item img {
+  width: 100%;
 }
