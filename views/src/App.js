@@ -11,7 +11,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <h1>hi 123</h1>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mungoo" element={<Mungoo />} />
