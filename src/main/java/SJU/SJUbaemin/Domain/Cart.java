@@ -11,9 +11,9 @@ public class Cart {
     @GeneratedValue
     @Column(name = "cart_id")
     private Long id;
-
-    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
-    private Member member;
+//
+//    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
+//    private Member member;
 
     private Long quantity;
     private int price;
