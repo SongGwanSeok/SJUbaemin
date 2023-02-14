@@ -28,7 +28,7 @@ public class AuthController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    @PostMapping("/authentic")
+    @PostMapping("/authenticate")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
 
         //loginDto에서 아이디와 비밀번호를 받아서 authenticationToken 객체를 생성한다.

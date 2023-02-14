@@ -24,10 +24,13 @@ public class Member {
     private String loginId;
     @Column(name = "login_pw")
     private String loginPw;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "username")
-    private String username;
-
+    private String email;
+    private String birthday;
+    private String phone;
+    private String address;
 
     @JsonIgnore
     @Column(name = "activated")
@@ -43,16 +46,11 @@ public class Member {
 
 
 
-//    private String email;
-//    private String birthday;
-//    private String phone;
 
 //    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "cart_id")
 //    private Cart cart;
 
-//    @Embedded
-//    private Address address;
 
 
 }

@@ -1,5 +1,6 @@
 package SJU.SJUbaemin.Repository;
 
+import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EntityManager;
@@ -48,6 +49,7 @@ public class ProductRepository {
         return em.createQuery("select p from Product p where p.type = :type", Product.class)
                 .setParameter("type", type)
                 .getResultList();
+
     }
 
 

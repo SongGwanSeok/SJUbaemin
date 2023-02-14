@@ -29,6 +29,11 @@ public class MemberDto {
     @Size(min = 3, max = 50)
     private String username;
 
+    private String email;
+    private String birthday;
+    private String phone;
+    private String address;
+
 
 
 //    private Set<AuthorityDto> authorityDtoSet;

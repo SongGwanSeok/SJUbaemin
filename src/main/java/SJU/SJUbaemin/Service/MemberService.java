@@ -36,7 +36,7 @@ public class MemberService {
 
     //멤버 이름 중복 확인
     private void validationDuplicateMemberName(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getUsername());
+        List<Member> findMembers = memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) { // memberRepository 에서 이름으로 검색한게 결과가 있다면,
             throw new IllegalStateException("이미 존재하는 회원입니다."); // 예외처리
         }
@@ -74,7 +74,11 @@ public class MemberService {
         Member member = Member.builder()
                 .loginId(memberDto.getLoginId())
                 .loginPw(passwordEncoder.encode(memberDto.getLoginPw()))
-                .username(memberDto.getUsername())
+                .name(memberDto.getUsername())
+                .email(memberDto.getEmail())
+                .birthday(memberDto.getBirthday())
+                .phone(memberDto.getPhone())
+                .address(memberDto.getAddress())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
