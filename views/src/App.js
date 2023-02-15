@@ -6,6 +6,7 @@ import Mungoo from "./pages/Mungoo";
 import Living from "./pages/Living";
 import Book from "./pages/Book";
 import Detail from "./pages/Detail";
+import Login from "./pages/Login";
 
 import "./App.css";
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/living" element={<Living data={data} />} />
             <Route path="/book" element={<Book data={data} />} />
             <Route path="/detail/:id" element={<Detail data={data} />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </BrowserRouter>

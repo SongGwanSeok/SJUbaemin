@@ -1,11 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MyButton from "./MyButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +6,6 @@ import {
   faCartShopping,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-
 const Header = () => {
   const navigate = useNavigate();
   return (
@@ -43,8 +35,7 @@ const Header = () => {
       <div className="headerRight">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
         <FontAwesomeIcon icon={faCartShopping} />
-
-        <MyButton text={"로그인"} onClick={() => navigate("/")} />
+        <MyButton text={"로그인"} onClick={() => navigate("/login")} />
         <FontAwesomeIcon icon={faBars} />
       </div>
     </div>
