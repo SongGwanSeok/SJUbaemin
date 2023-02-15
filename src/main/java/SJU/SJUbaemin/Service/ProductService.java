@@ -17,19 +17,32 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+
     /**
      * 상품 등록
      */
-    public Long register(Product product) {
-        validationDuplicateProductName(product);
-        productRepository.save(product);
-        return product.getId();
+    @Transactional
+    public Product register(ProductDto productDto) {
+        validationDuplicateProductName(productDto);
+
+        Product product = Product.builder()
+                .name(productDto.getName())
+                .price(productDto.getPrice())
+                .quantity(productDto.getQuantity())
+                .content(productDto.getContent())
+                .type(productDto.getType())
+                .build();
+
+        Product savedProduct = productRepository.save(product);
+
+        return savedProduct;
     }
 
     /**
      * 상품 삭제
      * check box로 상품의 id 번호를 가져와서 삭제
      */
+    @Transactional
     public void deregister(Long productId) {
         Product product = productRepository.findOne(productId);
         productRepository.delete(product);
@@ -55,15 +68,15 @@ public class ProductService {
     /**
      * 상품 수정
      */
-    public Product update (Long productId, ProductDto productDto) {
+    @Transactional
+    public void update (Long productId, ProductDto productDto) {
         Product findProduct = productRepository.findOne(productId);
         findProduct.change(productDto);
-        return findProduct;
     }
     
 
     //product가 있는지 확인
-    private void validationDuplicateProductName(Product product) {
+    private void validationDuplicateProductName(ProductDto product) {
         List<Product> products = productRepository.findByName(product.getName());
         if (!products.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 상품입니다."); // 예외처리

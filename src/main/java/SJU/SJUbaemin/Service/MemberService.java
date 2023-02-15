@@ -74,7 +74,7 @@ public class MemberService {
         Member member = Member.builder()
                 .loginId(memberDto.getLoginId())
                 .loginPw(passwordEncoder.encode(memberDto.getLoginPw()))
-                .name(memberDto.getUsername())
+                .name(memberDto.getName())
                 .email(memberDto.getEmail())
                 .birthday(memberDto.getBirthday())
                 .phone(memberDto.getPhone())

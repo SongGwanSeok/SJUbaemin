@@ -1,5 +1,6 @@
 package SJU.SJUbaemin.Repository;
 
+import SJU.SJUbaemin.Domain.Dto.ProductDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
@@ -15,14 +16,13 @@ public class ProductRepository {
 
     private final EntityManager em;
 
-    public Long save(Product product) {
-
+    public Product save(Product product) {
         if(product.getId() == null){
             em.persist(product);
         } else {
             em.merge(product);
         }
-        return product.getId();
+        return product;
     }
 
     public void delete(Product product) {

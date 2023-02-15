@@ -27,7 +27,7 @@ public class MemberDto {
 
     @NotNull
     @Size(min = 3, max = 50)
-    private String username;
+    private String name;
 
     private String email;
     private String birthday;
