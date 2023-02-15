@@ -1,11 +1,21 @@
 import { useParams } from "react-router-dom";
+import Header from "../components/Header";
+import { DataContext } from "../App.js";
+import React from "react";
+import DetailHeader from "../components/DetailHeader";
 
 const Detail = () => {
   const { id } = useParams();
-
+  const data = React.useContext(DataContext);
+  const targetItem = data.find((it) => {
+    return parseInt(it.id) === parseInt(id);
+  });
   return (
     <div className="Detail">
-      <h1>{id}번째 아이템 상세페이지 입니당</h1>
+      <Header />
+      <div className="content">
+        <DetailHeader {...targetItem} />
+      </div>
     </div>
   );
 };

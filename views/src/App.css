@@ -8,25 +8,46 @@
   align-items: center;
   justify-content: space-between;
   margin: 5px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
 }
-
-.Header .cate {
+.Header .headerLeft {
+  margin-right: 40px;
+}
+.Header .headerCenter {
   display: flex;
-  justify-content: space-between;
-  width: 20%;
+  justify-content: left;
+  flex-grow: 1;
   color: black;
 }
-.Header .cate .cateLink {
+.Header .headerCenter .cateLink {
   text-decoration: none;
   color: black;
+  margin-right: 30px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-.Header .cate .cateLink:hover {
+.Header .headerCenter .cateLink:hover {
   color: #2ac1bc;
 }
-/* Content */
 
-.Content {
+.Header .headerRight * {
+  margin-left: 20px;
+  font-size: 18px;
+}
+.Header .headerRight .MyButton {
+  border: 2px solid rgb(68, 68, 68);
+  border-radius: 17px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 15px;
+  color: rgb(68, 68, 68);
+}
+
+/* content */
+
+.content {
   margin-left: 8%;
   margin-right: 8%;
   margin-top: 5%;
@@ -79,4 +100,78 @@
 
 .ItemList .Item_wrapper .Item img {
   width: 100%;
+}
+
+/* MyButton */
+
+.MyButton {
+  background-color: white;
+  border: 1px solid #ddd;
+  /* padding: 10px 15px; */
+  /* width: 30px; */
+  /* height: 30px; */
+  border-radius: 5px;
+  color: gray;
+}
+
+/* DetailHeader */
+.DetailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.DetailHeader .detailHeaderLeft {
+}
+.DetailHeader .detailHeaderCenter img {
+  width: 300px;
+  height: 300px;
+}
+.DetailHeader .detailHeaderRight .deliInfo {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  /* margin: 10px; */
+}
+.DetailHeader .detailHeaderRight .deliInfo p {
+  color: #999;
+}
+.DetailHeader .detailHeaderRight .detailCount_wrapper {
+  margin: 10px 5px;
+  padding: 10px 5px;
+  background-color: #fafafa;
+  border-radius: 6px;
+}
+.DetailHeader .detailHeaderRight .controller {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.DetailHeader .detailHeaderRight .controller input {
+  width: 30px;
+  border: 1px solid #ddd;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0px 3px;
+}
+.DetailHeader .detailHeaderRight .price_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.DetailHeader .detailHeaderRight .button_wrapper {
+  display: flex;
+}
+
+.DetailHeader .detailHeaderRight .button_wrapper .cart .MyButton {
+  padding: 15px;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.DetailHeader .detailHeaderRight .button_wrapper .buy {
+  flex-grow: 1;
+}
+.DetailHeader .detailHeaderRight .button_wrapper .buy .MyButton {
+  width: 100%;
+  height: 100%;
+  background-color: #2ac1bc;
+  color: white;
+  font-size: 15px;
 }

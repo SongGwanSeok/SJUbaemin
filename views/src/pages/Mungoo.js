@@ -8,7 +8,7 @@ const Mungoo = ({ data }) => {
     <div className="Mungoo">
       <Header />
 
-      <div className="Content">
+      <div className="content">
         <PageInfo
           title={"문구"}
           info={`사랑을 쓸려거든 연필로 쓰세요.
