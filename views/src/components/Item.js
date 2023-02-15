@@ -13,7 +13,7 @@ const Item = ({ img, name, price, id }) => {
         <img src={img} />
         <div className="itemText">
           <div>{name}</div>
-          <div>{price}</div>
+          <div>{price}원</div>
         </div>
       </div>
     </div>

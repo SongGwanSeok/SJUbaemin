@@ -16,7 +16,14 @@
   width: 20%;
   color: black;
 }
+.Header .cate .cateLink {
+  text-decoration: none;
+  color: black;
+}
 
+.Header .cate .cateLink:hover {
+  color: #2ac1bc;
+}
 /* Content */
 
 .Content {

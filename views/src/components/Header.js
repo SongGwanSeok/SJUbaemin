@@ -13,13 +13,13 @@ const Header = () => {
         ></img>
       </Link>
       <div className="cate">
-        <Link style={{ textDecoration: "none", color: "black" }} to={"/mungoo"}>
+        <Link className="cateLink" to={"/mungoo"}>
           문구
         </Link>
-        <Link style={{ textDecoration: "none", color: "black" }} to={"/living"}>
+        <Link className="cateLink" to={"/living"}>
           리빙
         </Link>
-        <Link style={{ textDecoration: "none", color: "black" }} to={"/book"}>
+        <Link className="cateLink" to={"/book"}>
           책
         </Link>
       </div>
