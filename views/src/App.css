@@ -187,6 +187,7 @@
 .Login .content .input_wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 40px;
 }
 
@@ -196,6 +197,7 @@
   width: 400px;
   height: 60px;
   margin: 10px 0;
+  padding: 5px 20px;
 }
 
 .Login .content .input_wrapper .MyButton {
