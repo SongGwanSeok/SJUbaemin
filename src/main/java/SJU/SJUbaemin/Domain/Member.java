@@ -2,6 +2,7 @@ package SJU.SJUbaemin.Domain;
 
 import SJU.SJUbaemin.Domain.Address;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,7 @@ public class Member {
     private String loginId;
     private String loginPw;
 
+    @Builder
     public Member(String name, String email, String birthday, String phone, Address address) {
         this.name = name;
         this.email = email;
