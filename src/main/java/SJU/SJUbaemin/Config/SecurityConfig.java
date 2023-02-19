@@ -14,12 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -57,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**", "/favicon.ico",
                         "/api/hello",
                         "/api/authenticate", //토큰을 받기 위한 로그인 api
-                        "/api/signup", // 회원가입을 하기 위한 회원가입 api
+                        "/api/member/signup", // 회원가입을 하기 위한 회원가입 api
                         "/api/product/all", // 상품 목록 전체
                         "/api/product/type/**" // 상품 타입 검색
                 ).permitAll()
@@ -68,5 +70,13 @@ public class SecurityConfig {
 
 
         return httpSecurity.build();
+    }
+
+    //cors 문제 해결
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("*");
     }
 }

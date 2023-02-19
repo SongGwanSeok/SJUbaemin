@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/member")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -23,18 +23,39 @@ public class MemberController {
         return ResponseEntity.ok(memberService.signup(memberDto));
     }
 
-    @GetMapping("/member")
+    @GetMapping("")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Member> getMyMemberInfo() {
         return ResponseEntity.ok(memberService.getMyMemberWithAuthorities().get());
     }
 
-    @GetMapping("/member/{loginId}")
+    @GetMapping("/{loginId}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Member> getMemberInfo(@PathVariable String loginId) {
         return ResponseEntity.ok(memberService.getMemberWithAuthorities(loginId).get());
     }
 
+    @DeleteMapping("/delete/{loginId}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<Long> deleteMember(@PathVariable String loginId) {
+        return ResponseEntity.ok(memberService.delete(loginId));
+    }
 
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<MemberDto> updateMember( @PathVariable("id") Long id,
+                                                   @RequestBody @Valid MemberDto memberDto) {
+        memberService.update(id, memberDto);
+        Member findMember = memberService.findByMemberId(id);
+        return ResponseEntity.ok(MemberDto.builder()
+                .loginId(findMember.getLoginId())
+                .loginPw(findMember.getLoginPw())
+                .name(findMember.getName())
+                .email(findMember.getEmail())
+                .birthday(findMember.getBirthday())
+                .phone(findMember.getPhone())
+                .address(findMember.getAddress())
+                .build());
+    }
 
 }

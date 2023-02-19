@@ -1,7 +1,7 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Member;
-import SJU.SJUbaemin.Repository.MemberRepositoryAuth;
+import SJU.SJUbaemin.Repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
-    private final MemberRepositoryAuth userRepository;
+    private final MemberRepository userRepository;
 
-    public CustomUserDetailsService(MemberRepositoryAuth userRepository) {
+    public CustomUserDetailsService(MemberRepository userRepository) {
         this.userRepository = userRepository;
     }
 

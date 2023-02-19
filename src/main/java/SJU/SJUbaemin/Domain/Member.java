@@ -1,5 +1,6 @@
 package SJU.SJUbaemin.Domain;
 
+import SJU.SJUbaemin.Domain.Dto.MemberDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +37,7 @@ public class Member {
     @Column(name = "activated")
     private boolean activated;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "member_authority",
             joinColumns = {@JoinColumn(name = "member_id", referencedColumnName = "member_id")},
@@ -44,12 +45,16 @@ public class Member {
     )
     private Set<Authority> authorities;
 
+    public void update(MemberDto memberDto) {
+        this.loginId = memberDto.getLoginId();
+        this.loginPw = memberDto.getLoginPw();
+        this.name = memberDto.getName();
+        this.email = memberDto.getEmail();
+        this.birthday = memberDto.getBirthday();
+        this.phone = memberDto.getPhone();
+        this.address = memberDto.getAddress();
+    }
 
-
-
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "cart_id")
-//    private Cart cart;
 
 
 
