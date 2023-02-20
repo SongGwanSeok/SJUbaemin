@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.Product.ProductDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
@@ -28,19 +29,11 @@ public class ProductController {
      */
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductDto> register(@RequestBody @Valid ProductDto request) {
+    public ResponseEntity<ProductResponseDto> register(@RequestBody @Valid ProductRequestDto request) {
 
         Product product = productService.register(request);
 
-        ProductDto response = ProductDto.builder()
-                .name(product.getName())
-                .price(product.getPrice())
-                .quantity(product.getQuantity())
-                .content(product.getContent())
-                .type(product.getType())
-                .build();
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(productEntityToDto(product));
     }
 
 
@@ -50,8 +43,8 @@ public class ProductController {
     @GetMapping("/all")
     public Result<List> findAll() {
         List<Product> productsAll = productService.findProductsAll();
-        List<ProductDto> collect = productsAll.stream()
-                .map(p -> new ProductDto(p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
+        List<ProductResponseDto> collect = productsAll.stream()
+                .map(p -> new ProductResponseDto(p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
                 .collect(Collectors.toList());
         return new Result<>(collect.size(), collect);
     }
@@ -60,12 +53,10 @@ public class ProductController {
      * 상품 목록 타입
      */
     @GetMapping("/type/{type}")
-    public Result<List> findType(
-            @PathVariable("type") ProductType type
-            ) {
+    public Result<List> findType(@PathVariable("type") ProductType type) {
         List<Product> productsCategory = productService.findProductsCategory(type);
-        List<ProductDto> collect = productsCategory.stream()
-                .map(p -> new ProductDto(p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
+        List<ProductResponseDto> collect = productsCategory.stream()
+                .map(p -> new ProductResponseDto(p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
                 .collect(Collectors.toList());
 
         return new Result<>(collect.size(), collect);
@@ -76,21 +67,13 @@ public class ProductController {
      */
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductDto> updateProduct(
+    public ResponseEntity<ProductResponseDto> updateProduct(
             @PathVariable("id") Long id,
-            @RequestBody @Valid ProductDto request
+            @RequestBody @Valid ProductRequestDto request
     ){
         productService.update(id, request);
         Product product = productService.findOne(id);
-        ProductDto response = ProductDto.builder()
-                .name(product.getName())
-                .price(product.getPrice())
-                .quantity(product.getQuantity())
-                .content(product.getContent())
-                .type(product.getType())
-                .build();
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(productEntityToDto(product));
     }
 
 
@@ -112,6 +95,17 @@ public class ProductController {
     static class Result<T> {
         private int count;
         private T data;
+    }
+
+    public ProductResponseDto productEntityToDto(Product product) {
+        return ProductResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice())
+                .content(product.getContent())
+                .quantity(product.getQuantity())
+                .type(product.getType())
+                .build();
     }
 
 }

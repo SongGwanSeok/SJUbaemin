@@ -1,7 +1,8 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Authority;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupResponseDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import SJU.SJUbaemin.Util.SecurityUtil;
@@ -28,7 +29,7 @@ public class MemberService {
      * 권한 정보 포함 회원가입
      */
     @Transactional
-    public Member signup(MemberDto memberDto) {
+    public Member signup(MemberSignupRequestDto memberDto) {
         if(memberRepository.findOneWithAuthoritiesByLoginId(memberDto.getLoginId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
@@ -85,7 +86,7 @@ public class MemberService {
      * 회원 정보 수정
      */
     @Transactional
-    public Long update(Long memberId, MemberDto memberDto) {
+    public Long update(Long memberId, MemberSignupRequestDto memberDto) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> {
             throw new IllegalArgumentException("찾을 수 없는 id입니다.");
         });

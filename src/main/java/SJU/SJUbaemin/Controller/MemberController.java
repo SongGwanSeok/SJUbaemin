@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.Member.MemberDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupResponseDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Service.MemberService;
 import jakarta.validation.Valid;
@@ -18,21 +19,24 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<Member> signup(
-            @Valid @RequestBody MemberDto memberDto
+            @Valid @RequestBody MemberSignupRequestDto memberDto
             ) {
         return ResponseEntity.ok(memberService.signup(memberDto));
     }
 
     @GetMapping("")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<Member> getMyMemberInfo() {
-        return ResponseEntity.ok(memberService.getMyMemberWithAuthorities().get());
+    public ResponseEntity<MemberSignupResponseDto> getMyMemberInfo() {
+        Member member = memberService.getMyMemberWithAuthorities().get();
+        return ResponseEntity.ok(memberEntityToDto(member));
     }
 
     @GetMapping("/{loginId}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<Member> getMemberInfo(@PathVariable String loginId) {
-        return ResponseEntity.ok(memberService.getMemberWithAuthorities(loginId).get());
+    public ResponseEntity<MemberSignupResponseDto> getMemberInfo(@PathVariable String loginId) {
+        Member member = memberService.getMemberWithAuthorities(loginId).get();
+
+        return ResponseEntity.ok(memberEntityToDto(member));
     }
 
     @DeleteMapping("/delete/{loginId}")
@@ -43,19 +47,25 @@ public class MemberController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<MemberDto> updateMember( @PathVariable("id") Long id,
-                                                   @RequestBody @Valid MemberDto memberDto) {
+    public ResponseEntity<MemberSignupResponseDto> updateMember(@PathVariable("id") Long id,
+                                                                @RequestBody @Valid MemberSignupRequestDto memberDto) {
         memberService.update(id, memberDto);
         Member findMember = memberService.findByMemberId(id);
-        return ResponseEntity.ok(MemberDto.builder()
-                .loginId(findMember.getLoginId())
-                .loginPw(findMember.getLoginPw())
-                .name(findMember.getName())
-                .email(findMember.getEmail())
-                .birthday(findMember.getBirthday())
-                .phone(findMember.getPhone())
-                .address(findMember.getAddress())
-                .build());
+        return ResponseEntity.ok(memberEntityToDto(findMember));
+    }
+
+    public MemberSignupResponseDto memberEntityToDto(Member member) {
+
+        return MemberSignupResponseDto.builder()
+                .id(member.getId())
+                .loginId(member.getLoginId())
+                .loginPw(member.getLoginPw())
+                .name(member.getName())
+                .email(member.getEmail())
+                .birthday(member.getBirthday())
+                .phone(member.getPhone())
+                .address(member.getAddress())
+                .build();
     }
 
 }

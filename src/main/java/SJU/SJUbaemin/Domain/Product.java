@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Dto.Product.ProductDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,7 +41,7 @@ public class Product {
         review.setProduct(this);
     }
 
-    public void change(ProductDto productDto) {
+    public void change(ProductRequestDto productDto) {
         this.name = productDto.getName();
         this.price = productDto.getPrice();
         this.quantity = productDto.getQuantity();

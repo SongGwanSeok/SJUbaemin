@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Service;
 
-import SJU.SJUbaemin.Domain.Dto.Product.ProductDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Repository.ProductRepository;
@@ -22,7 +23,7 @@ public class ProductService {
      * 상품 등록
      */
     @Transactional
-    public Product register(ProductDto productDto) {
+    public Product register(ProductRequestDto productDto) {
         validationDuplicateProductName(productDto);
 
         Product product = Product.builder()
@@ -69,14 +70,14 @@ public class ProductService {
      * 상품 수정
      */
     @Transactional
-    public void update (Long productId, ProductDto productDto) {
+    public void update (Long productId, ProductRequestDto productDto) {
         Product findProduct = productRepository.findOne(productId);
         findProduct.change(productDto);
     }
     
 
     //product가 있는지 확인
-    private void validationDuplicateProductName(ProductDto product) {
+    private void validationDuplicateProductName(ProductRequestDto product) {
         List<Product> products = productRepository.findByName(product.getName());
         if (!products.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 상품입니다."); // 예외처리

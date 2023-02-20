@@ -23,6 +23,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)  //ManyToOne은 기본타입이 Eager이므로 변경
     @JoinColumn(name = "member_id")
     private Member member;
+
     private String title;
     private String content;
     private Long view_cnt;   //조회수
