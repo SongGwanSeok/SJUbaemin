@@ -56,13 +56,14 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/h2-console/**", "/favicon.ico",
+                .requestMatchers(
+                        "/h2-console/**", "/favicon.ico",
                         "/api/hello",
                         "/api/authenticate", //토큰을 받기 위한 로그인 api
                         "/api/member/signup", // 회원가입을 하기 위한 회원가입 api
                         "/api/product/all", // 상품 목록 전체
                         "/api/product/type/**", // 상품 타입 검색
-                        "/api/v1/board/{id}" // 게시판 글 조회
+                        "/api/board/findById/{id}" // 게시판 글 조회
                 ).permitAll()
                 .anyRequest().authenticated()
 

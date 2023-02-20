@@ -10,30 +10,33 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api/board")
 public class BoardApiController {
 
     private final BoardService boardService;
 
-    @PostMapping("/api/v1/board")
+    @PostMapping("/save/{memberId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Long save(@RequestBody BoardSaveRequestDto requestDto) {
-        return boardService.save(requestDto);
+    public Long save(
+            @PathVariable Long memberId,
+            @RequestBody BoardSaveRequestDto requestDto) {
+        return boardService.save(memberId, requestDto);
     }
 
-    @PutMapping("/api/v1/board/{id}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Long update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto requestDto) {
         return boardService.update(id, requestDto);
     }
 
-    @DeleteMapping("/api/v1/board/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Long delete(@PathVariable Long id) {
         boardService.delete(id);
         return id;
     }
 
-    @GetMapping("/api/v1/board/{id}")
+    @GetMapping("/findById/{id}")
     public BoardResponseDto findById(@PathVariable Long id) {
         return boardService.findById(id);
     }

@@ -22,7 +22,7 @@ public class BoardSaveRequestDto {
         this.member=member;
     }
 
-    public Board toEntity() {
+    public Board toEntity(Member member) {
         return Board.builder()
                 .title(title)
                 .content(content)
