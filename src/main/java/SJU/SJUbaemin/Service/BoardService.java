@@ -1,13 +1,12 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Board;
-import SJU.SJUbaemin.Domain.BoardRepository;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardListResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardUpdateRequestDto;
+import SJU.SJUbaemin.Repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

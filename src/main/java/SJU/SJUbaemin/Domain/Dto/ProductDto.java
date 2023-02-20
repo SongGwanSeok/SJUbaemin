@@ -3,15 +3,14 @@ package SJU.SJUbaemin.Domain.Dto;
 import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Data
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ProductDto {
-    public ProductDto() {
-    }
 
     private String name;
     private int price;

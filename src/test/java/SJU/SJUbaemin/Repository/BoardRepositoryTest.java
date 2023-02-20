@@ -1,7 +1,6 @@
 //package SJU.SJUbaemin.Repository;
 //
 //import SJU.SJUbaemin.Domain.Board;
-//import SJU.SJUbaemin.Domain.BoardRepository;
 //import SJU.SJUbaemin.Domain.Member;
 //import jakarta.persistence.EntityManager;
 //import org.junit.jupiter.api.Assertions;
@@ -22,7 +21,6 @@
 //class BoardRepositoryTest {
 //
 //    @Autowired
-//    BoardRepository boardRepository;
 //    @Autowired MemberRepository memberRepository;
 //    @Autowired
 //    EntityManager em;

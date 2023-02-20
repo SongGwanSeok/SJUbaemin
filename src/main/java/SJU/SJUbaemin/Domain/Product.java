@@ -2,8 +2,7 @@ package SJU.SJUbaemin.Domain;
 
 import SJU.SJUbaemin.Domain.Dto.ProductDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,8 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
 
     @Id @GeneratedValue
@@ -39,19 +40,12 @@ public class Product {
         review.setProduct(this);
     }
 
-    public Product(String name, int price, Long quantity, String content, ProductType type) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.content = content;
-        this.type = type;
-    }
-
     public void change(ProductDto productDto) {
         this.name = productDto.getName();
         this.price = productDto.getPrice();
         this.quantity = productDto.getQuantity();
         this.content = productDto.getContent();
+        this.type = productDto.getType();
     }
 
 
