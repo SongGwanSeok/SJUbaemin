@@ -6,6 +6,8 @@ import {
   faCartShopping,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+
 const Header = () => {
   const navigate = useNavigate();
   return (
@@ -35,7 +37,25 @@ const Header = () => {
       <div className="headerRight">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
         <FontAwesomeIcon icon={faCartShopping} />
-        <MyButton text={"로그인"} onClick={() => navigate("/login")} />
+        {sessionStorage.getItem("token") ? (
+          <span>
+            <FontAwesomeIcon
+              icon={faUser}
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            />
+            <MyButton
+              text={"로그아웃"}
+              onClick={() => {
+                sessionStorage.removeItem("token");
+                navigate("/");
+              }}
+            />
+          </span>
+        ) : (
+          <MyButton text={"로그인"} onClick={() => navigate("/login")} />
+        )}
         <FontAwesomeIcon icon={faBars} />
       </div>
     </div>
