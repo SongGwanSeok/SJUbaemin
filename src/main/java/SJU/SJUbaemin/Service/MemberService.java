@@ -6,6 +6,7 @@ import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import SJU.SJUbaemin.Util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
@@ -86,8 +88,16 @@ public class MemberService {
     @Transactional
     public Long update(Long memberId, MemberDto memberDto) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> {
-            return new IllegalArgumentException("찾을 수 없는 id입니다");
+            throw new IllegalArgumentException("찾을 수 없는 id입니다.");
         });
+
+
+        if(!member.getLoginId().equals(memberDto.getLoginId())) {
+            if(memberRepository.findOneWithAuthoritiesByLoginId(memberDto.getLoginId()).isPresent()) {
+                throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
+            }
+        }
+
         memberDto.setLoginPw(passwordEncoder.encode(memberDto.getLoginPw()));
         member.update(memberDto);
         return member.getId();
