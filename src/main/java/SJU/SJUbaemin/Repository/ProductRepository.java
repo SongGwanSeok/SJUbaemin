@@ -1,7 +1,5 @@
 package SJU.SJUbaemin.Repository;
 
-import SJU.SJUbaemin.Domain.Dto.ProductDto;
-import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EntityManager;

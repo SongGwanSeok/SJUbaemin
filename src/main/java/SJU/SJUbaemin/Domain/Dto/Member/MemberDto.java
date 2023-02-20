@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain.Dto;
+package SJU.SJUbaemin.Domain.Dto.Member;
 
 import SJU.SJUbaemin.Domain.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDto {
+
+    @NotNull
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 50)

@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain.Dto;
+package SJU.SJUbaemin.Domain.Dto.Member;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Authority;
-import SJU.SJUbaemin.Domain.Dto.MemberDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import SJU.SJUbaemin.Util.SecurityUtil;
@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.Optional;
 

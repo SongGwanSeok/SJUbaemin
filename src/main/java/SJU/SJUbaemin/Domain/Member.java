@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Dto.MemberDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

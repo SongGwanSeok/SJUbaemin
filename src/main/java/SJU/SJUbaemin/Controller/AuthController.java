@@ -1,7 +1,7 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.LoginDto;
-import SJU.SJUbaemin.Domain.Dto.TokenDto;
+import SJU.SJUbaemin.Domain.Dto.Member.LoginDto;
+import SJU.SJUbaemin.Domain.Dto.Member.TokenDto;
 import SJU.SJUbaemin.Jwt.JwtFilter;
 import SJU.SJUbaemin.Jwt.TokenProvider;
 import jakarta.validation.Valid;

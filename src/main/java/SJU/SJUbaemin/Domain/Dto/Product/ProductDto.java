@@ -1,8 +1,9 @@
-package SJU.SJUbaemin.Domain.Dto;
+package SJU.SJUbaemin.Domain.Dto.Product;
 
 import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -11,6 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ProductDto {
+
+    @NotNull
+    private Long id;
 
     private String name;
     private int price;

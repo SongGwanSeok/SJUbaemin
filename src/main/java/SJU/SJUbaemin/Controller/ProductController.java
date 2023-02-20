@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.ProductDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Service.ProductService;

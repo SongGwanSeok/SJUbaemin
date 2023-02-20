@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Dto.ProductDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductDto;
 import jakarta.persistence.*;
 import lombok.*;
 

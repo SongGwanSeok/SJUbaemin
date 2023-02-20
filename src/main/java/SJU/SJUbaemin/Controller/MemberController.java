@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.MemberDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Service.MemberService;
 import jakarta.validation.Valid;
