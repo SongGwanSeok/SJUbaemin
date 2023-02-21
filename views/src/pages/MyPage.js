@@ -18,11 +18,7 @@ const MyPage = () => {
   return (
     <div className="MyPage">
       <Header />
-      <div className="content">
-        <input type="file" onChange={fileUpLoad} />
-        <h3>마이페이지</h3>
-        <div>반가워요, {}님</div>
-      </div>
+      <div className="content"></div>
     </div>
   );
 };
