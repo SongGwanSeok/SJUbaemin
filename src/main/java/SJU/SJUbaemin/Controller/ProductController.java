@@ -5,6 +5,7 @@ import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +32,13 @@ public class ProductController {
      */
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductResponseDto> register(@RequestBody @Valid ProductRequestDto request) {
+    public ResponseEntity<ProductResponseDto> register(
+            @RequestPart(value = "data") ProductRequestDto productRequestDto,
+            @RequestPart(value = "file") List<MultipartFile> multipartFiles,
+            HttpServletRequest request
+    ) throws IOException {
 
-        Product product = productService.register(request);
+        Product product = productService.register(productRequestDto, multipartFiles, request);
 
         return ResponseEntity.ok(productEntityToDto(product));
     }
@@ -85,6 +92,7 @@ public class ProductController {
     public ResponseEntity<Long> delete(
             @PathVariable("id") Long id
     ) {
+
         productService.deregister(id);
         return ResponseEntity.ok(id);
     }

@@ -1,38 +1,103 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
+import SJU.SJUbaemin.Domain.ProductImage;
 import SJU.SJUbaemin.Domain.ProductType;
+import SJU.SJUbaemin.Repository.ProductImageRepository;
 import SJU.SJUbaemin.Repository.ProductRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductImageRepository productImageRepository;
+
+
+    private final String uploadPath = "src/main/resources/static/images/";
 
 
     /**
      * 상품 등록
      */
     @Transactional
-    public Product register(ProductRequestDto productDto) {
-        validationDuplicateProductName(productDto);
+    public Product register(ProductRequestDto productRequestDto, List<MultipartFile> multipartFiles, HttpServletRequest request) throws IOException {
 
+        List<ProductImage> productImages = new ArrayList<>();
         Product product = Product.builder()
-                .name(productDto.getName())
-                .price(productDto.getPrice())
-                .quantity(productDto.getQuantity())
-                .content(productDto.getContent())
-                .type(productDto.getType())
+                .name(productRequestDto.getName())
+                .price(productRequestDto.getPrice())
+                .quantity(productRequestDto.getQuantity())
+                .content(productRequestDto.getContent())
+                .type(productRequestDto.getType())
+                .productImages(productImages)
                 .build();
+
+        if (multipartFiles.isEmpty()) {
+            return productRepository.save(product);
+        }
+
+        // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
+        String absolutePath = new File("").getAbsolutePath() + "/";
+
+        String path = "src/main/resources/static/images/" + product.getName();
+        File file = new File(path);
+        if (!file.exists()) {
+            // mkdir() 함수와 다른 점은 상위 디렉토리가 존재하지 않을 때 그것까지 생성
+            file.mkdirs();
+        }
+
+        for (MultipartFile multipartFile : multipartFiles) {
+
+            if(!multipartFile.isEmpty()) {
+                String contentType = multipartFile.getContentType();
+                String originalFileExtension;
+                if(ObjectUtils.isEmpty(contentType)) {
+                    break;
+                } else {
+                    if (contentType.contains("image/jpeg")) {
+                        originalFileExtension = ".jpg";
+                    } else if (contentType.contains("image/png")) {
+                        originalFileExtension = ".png";
+                    } else if (contentType.contains("image/gif")) {
+                        originalFileExtension = ".gif";
+                    }
+                    // 다른 파일 명이면 아무 일 하지 않는다
+                    else {
+                        break;
+                    }
+                }
+                // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
+                String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;
+                ProductImage productImage = ProductImage.builder()
+                        .type(contentType)
+                        .date(LocalDate.now())
+                        .path(path + "/" + new_file_name)
+                        .product(product)
+                        .build();
+                product.getProductImages().add(productImage);
+
+                file = new File(absolutePath + path + "/" + new_file_name);
+                multipartFile.transferTo(file);
+            }
+
+        }
 
         Product savedProduct = productRepository.save(product);
 
@@ -46,6 +111,30 @@ public class ProductService {
     @Transactional
     public void deregister(Long productId) {
         Product product = productRepository.findOne(productId);
+
+        // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
+        String absolutePath = new File("").getAbsolutePath() + "/";
+        String path = "src/main/resources/static/images/";
+        File folder = new File(absolutePath + path);
+
+        //해당 폴더 삭제
+        try {
+            File[] files = folder.listFiles();
+            while(folder.exists()){
+
+                for(File file : files){
+                    file.delete(); // 하위 파일 삭제
+                    log.info("파일 {}를 삭제했습니다.", file.getName());
+                }
+            }
+            if(files.length == 0 && folder.isDirectory()){ // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
+                folder.delete(); // 대상폴더 삭제
+                log.info("폴더 {}를 삭제했습니다.", folder.getName());
+            }
+        }catch (Exception e) {
+            e.getStackTrace();
+        }
+
         productRepository.delete(product);
     }
 
@@ -77,11 +166,12 @@ public class ProductService {
     
 
     //product가 있는지 확인
-    private void validationDuplicateProductName(ProductRequestDto product) {
-        List<Product> products = productRepository.findByName(product.getName());
+    private void validationDuplicateProductName(ProductRequestDto productRequestDto) {
+        List<Product> products = productRepository.findByName(productRequestDto.getName());
         if (!products.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 상품입니다."); // 예외처리
         }
     }
+
 
 }

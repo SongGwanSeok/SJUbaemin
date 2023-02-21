@@ -27,13 +27,11 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductType type;
 
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Category category;
-     */
-
     @OneToMany(mappedBy = "product")
     private List<ProductReview> reviewList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImages = new ArrayList<>();
 
     //연관관계 편의 메서드
     public void addReview (ProductReview review) {
