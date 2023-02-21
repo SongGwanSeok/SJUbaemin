@@ -51,6 +51,9 @@ const Login = () => {
             }}
             type="password"
             placeholder="비밀번호"
+            onKeyDown={(e) => {
+              if (e.key == "Enter") handleLogin();
+            }}
           />
           <MyButton text="로그인" onClick={handleLogin} />
         </div>

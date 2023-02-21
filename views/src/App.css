@@ -237,3 +237,23 @@
   padding: 0 10px;
   margin: 0 10px;
 }
+
+/* Admin */
+
+.Admin .content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Admin .content > div {
+  border: 1px solid #ddd;
+  padding: 30px;
+}
+
+.Admin .content button {
+  margin: 10px;
+}
+
+.Admin .content input {
+  margin: 4px;
+}

@@ -5,8 +5,10 @@ import Header from "../components/Header";
 const MyPage = () => {
   useEffect(() => {
     axios
-      .get("http://13.125.7.108:8080/api/member/admin", {
-        headers: { Authorization: sessionStorage.getItem("token") },
+      .get("http://13.125.7.108:8080/api/member", {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
       })
       .then((res) => {
         console.log(res);
@@ -17,8 +19,9 @@ const MyPage = () => {
     <div className="MyPage">
       <Header />
       <div className="content">
+        <input type="file" onChange={fileUpLoad} />
         <h3>마이페이지</h3>
-        <div className="nemo">반가워요, {}님</div>
+        <div>반가워요, {}님</div>
       </div>
     </div>
   );

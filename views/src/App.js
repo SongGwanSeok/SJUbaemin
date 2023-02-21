@@ -10,6 +10,7 @@ import Book from "./pages/Book";
 import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import MyPage from "./pages/MyPage";
+import Admin from "./pages/Admin";
 
 import "./App.css";
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="/detail/:id" element={<Detail data={data} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </BrowserRouter>
