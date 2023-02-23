@@ -304,3 +304,68 @@
   display: flex;
   justify-content: space-around;
 }
+
+/* MyPage */
+
+.MyPage .content {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.MyPage .content > h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 80px 0;
+}
+
+.MyPage .content .navbarContent_wrapper {
+  display: flex;
+}
+
+.MyPage .content .navbarContent_wrapper .navbar {
+  margin-right: 90px;
+}
+
+.MyPage .content .navbarContent_wrapper .navbar > div {
+  margin-bottom: 50px;
+}
+
+.MyPage .content .navbarContent_wrapper .navbar > div > h3 {
+  margin: 0;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.MyPage .content .navbarContent_wrapper .navbar > div > div {
+  margin: 16px 0;
+  cursor: pointer;
+}
+
+.MyPage .content .navbarContent_wrapper .navbar > div > div:hover {
+  color: #2ac1bc;
+}
+
+.MyPage .content .navbarContent_wrapper .myPageContent {
+  flex-grow: 1;
+}
+
+/* NullInfo */
+
+.NullInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 80px 0;
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.NullInfo h1 {
+  font-size: 60px;
+}
+
+.NullInfo > div {
+  font-size: 20px;
+}
