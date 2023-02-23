@@ -257,3 +257,8 @@
 .Admin .content input {
   margin: 4px;
 }
+
+.Admin .content .checkUserInfo .userInfo {
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
-
 import Home from "./pages/Home";
 import Mungoo from "./pages/Mungoo";
 import Living from "./pages/Living";
@@ -12,23 +10,18 @@ import Login from "./pages/Login";
 import MyPage from "./pages/MyPage";
 import Admin from "./pages/Admin";
 
+import getAll from "./utils/getAll";
 import "./App.css";
 
 export const DataContext = React.createContext();
 
 function App() {
-  const SERVER_URL = "http://13.125.7.108:8080";
   const [data, setData] = useState([]);
 
   //  --------------- 세배돈 서버 API 연결 -----------------
 
-  const getData = async () => {
-    const { data } = await axios.get(`${SERVER_URL}/api/product/all`);
-    setData(data.data);
-  };
-
   useEffect(() => {
-    getData();
+    getAll().then(({ data }) => setData(data.data));
   }, []);
 
   return (

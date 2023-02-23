@@ -1,62 +1,29 @@
 import { useState, useContext } from "react";
-import axios from "axios";
 import { DataContext } from "../App";
 
 import Header from "../components/Header";
-import Item from "../components/Item";
+import addItem from "../utils/addItem";
+import removeItem from "../utils/removeItem";
+import checkUserInfo from "../utils/checkUserInfo";
 
 const Admin = () => {
   const data = useContext(DataContext);
 
-  const [file, setFile] = useState();
+  const [img, setImg] = useState();
   const [name, setName] = useState();
   const [price, setPrice] = useState();
   const [type, setType] = useState();
   const [search, setSearch] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [userId, setUserId] = useState();
-
-  const addItem = async () => {
-    await axios.post(`http://13.125.7.108:8080/api/product/register`, {
-      img: file,
-      name: name,
-      price: price,
-      type: type,
-    });
-  };
-
-  const tmp = [
-    { name: "abcd", id: 1 },
-    { name: "abc", id: 2 },
-    { name: "ab", id: 3 },
-  ];
+  const [userInfo, setUserInfo] = useState({});
 
   const searchItem = () => {
     setSearchData(
-      tmp.filter((it) => {
+      data.filter((it) => {
         if (search !== "") return it.name.includes(search);
       })
     );
-  };
-
-  const removeItem = async (id) => {
-    await axios.delete(`http://13.125.7.108:8080/api/product/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      },
-    });
-  };
-
-  const checkUserInfo = () => {
-    axios
-      .get(`http://13.125.7.108:8080/api/member/${userId}}`, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        return <div>{res.name}</div>;
-      });
   };
 
   return (
@@ -67,7 +34,7 @@ const Admin = () => {
           <input
             type="file"
             onChange={(e) => {
-              setFile(e.target.files);
+              setImg(e.target.files);
             }}
           />
           <br />
@@ -95,7 +62,13 @@ const Admin = () => {
             }}
           />
           <br />
-          <button onClick={addItem}> 상품 등록 </button>
+          <button
+            onClick={() => {
+              addItem(img, name, price, type);
+            }}
+          >
+            상품 등록
+          </button>
         </div>
 
         <div className="removeItem">
@@ -113,7 +86,7 @@ const Admin = () => {
                 <div>{it.img}</div>
                 <div>{it.name}</div>
                 <button
-                  onClick={(it) => {
+                  onClick={() => {
                     removeItem(it.id);
                   }}
                 >
@@ -132,7 +105,30 @@ const Admin = () => {
               setUserId(e.target.value);
             }}
           />
-          <button onClick={checkUserInfo}>유저정보 확인</button>
+          <button
+            onClick={() =>
+              checkUserInfo(userId)
+                .then(({ data }) => setUserInfo(data))
+                .catch(() => {
+                  alert("존재하지 않는 회원입니다");
+                  setUserInfo({});
+                })
+            }
+          >
+            유저정보 확인
+          </button>
+          <div className="userInfo">
+            <div>
+              {Object.keys(userInfo).map((it) => (
+                <div>{it}</div>
+              ))}
+            </div>
+            <div>
+              {Object.values(userInfo).map((it) => (
+                <div>{it}</div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
