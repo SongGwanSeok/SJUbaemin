@@ -1,10 +1,14 @@
 package SJU.SJUbaemin.Domain.Dto.Product;
 
+import SJU.SJUbaemin.Domain.ProductImage;
 import SJU.SJUbaemin.Domain.ProductType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.io.File;
+import java.util.List;
 
 @Data
 @Getter @Setter
@@ -24,5 +28,6 @@ public class ProductResponseDto {
     @Enumerated(EnumType.STRING)
     private ProductType type;
 
+    private List<String> imageFilesPath;
 
 }

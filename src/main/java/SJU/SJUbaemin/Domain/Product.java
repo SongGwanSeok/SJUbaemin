@@ -4,18 +4,20 @@ import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Slf4j
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Product {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Product_id")
     private Long id;
 
@@ -30,7 +32,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductReview> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages = new ArrayList<>();
 
     //연관관계 편의 메서드
@@ -45,6 +47,9 @@ public class Product {
         this.quantity = productDto.getQuantity();
         this.content = productDto.getContent();
         this.type = productDto.getType();
+    }
+    public void addImages (List<ProductImage> productImages) {
+        productImages.stream().forEach(p -> p.setProduct(this));
     }
 
 

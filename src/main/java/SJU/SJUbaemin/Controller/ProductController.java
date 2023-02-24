@@ -5,11 +5,11 @@ import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
@@ -34,13 +35,15 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ProductResponseDto> register(
             @RequestPart(value = "data") ProductRequestDto productRequestDto,
-            @RequestPart(value = "file") List<MultipartFile> multipartFiles,
-            HttpServletRequest request
+            @RequestPart(value = "file") List<MultipartFile> multipartFiles
     ) throws IOException {
 
-        Product product = productService.register(productRequestDto, multipartFiles, request);
+        Product product = productService.register(productRequestDto, multipartFiles);
+        List<String> pathList = product.getProductImages().stream().map(i -> i.getPath()).collect(Collectors.toList());
+        ProductResponseDto productResponseDto = productEntityToDto(product);
+        productResponseDto.setImageFilesPath(pathList);
 
-        return ResponseEntity.ok(productEntityToDto(product));
+        return ResponseEntity.ok(productResponseDto);
     }
 
 
@@ -51,8 +54,13 @@ public class ProductController {
     public Result<List> findAll() {
         List<Product> productsAll = productService.findProductsAll();
         List<ProductResponseDto> collect = productsAll.stream()
-                .map(p -> new ProductResponseDto(p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
+                .map(p -> new ProductResponseDto(
+                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType(),
+                        p.getProductImages().stream().map(productImage -> productImage.getPath()).collect(Collectors.toList())
+                        )
+                )
                 .collect(Collectors.toList());
+
         return new Result<>(collect.size(), collect);
     }
 
@@ -63,7 +71,11 @@ public class ProductController {
     public Result<List> findType(@PathVariable("type") ProductType type) {
         List<Product> productsCategory = productService.findProductsCategory(type);
         List<ProductResponseDto> collect = productsCategory.stream()
-                .map(p -> new ProductResponseDto(p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType()))
+                .map(p -> new ProductResponseDto(
+                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType(),
+                        p.getProductImages().stream().map(productImage -> productImage.getPath()).collect(Collectors.toList())
+                        )
+                )
                 .collect(Collectors.toList());
 
         return new Result<>(collect.size(), collect);

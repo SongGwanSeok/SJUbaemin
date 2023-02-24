@@ -29,5 +29,7 @@ public class ProductImage {
     private String path;
     private LocalDate date;
 
-
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

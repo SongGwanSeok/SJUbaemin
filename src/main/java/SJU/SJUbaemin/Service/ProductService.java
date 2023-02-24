@@ -27,7 +27,6 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductImageRepository productImageRepository;
 
 
     private final String uploadPath = "src/main/resources/static/images/";
@@ -37,7 +36,9 @@ public class ProductService {
      * 상품 등록
      */
     @Transactional
-    public Product register(ProductRequestDto productRequestDto, List<MultipartFile> multipartFiles, HttpServletRequest request) throws IOException {
+    public Product register(ProductRequestDto productRequestDto, List<MultipartFile> multipartFiles) throws IOException {
+        //상품 이름 겹치는 경우 삭제
+        validationDuplicateProductName(productRequestDto);
 
         List<ProductImage> productImages = new ArrayList<>();
         Product product = Product.builder()
@@ -64,7 +65,6 @@ public class ProductService {
         }
 
         for (MultipartFile multipartFile : multipartFiles) {
-
             if(!multipartFile.isEmpty()) {
                 String contentType = multipartFile.getContentType();
                 String originalFileExtension;
@@ -85,19 +85,19 @@ public class ProductService {
                 }
                 // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
                 String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;
+                file = new File(absolutePath + path + "/" + new_file_name);
+                multipartFile.transferTo(file);
+
                 ProductImage productImage = ProductImage.builder()
                         .type(contentType)
                         .date(LocalDate.now())
                         .path(path + "/" + new_file_name)
-                        .product(product)
+                        .name(new_file_name)
                         .build();
-                product.getProductImages().add(productImage);
-
-                file = new File(absolutePath + path + "/" + new_file_name);
-                multipartFile.transferTo(file);
+                productImages.add(productImage);
             }
-
         }
+        product.addImages(productImages);
 
         Product savedProduct = productRepository.save(product);
 
@@ -115,22 +115,19 @@ public class ProductService {
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
         String absolutePath = new File("").getAbsolutePath() + "/";
         String path = "src/main/resources/static/images/";
-        File folder = new File(absolutePath + path);
+        String productFileName = product.getName().toString();
+        File folder = new File(absolutePath + path + productFileName);
 
         //해당 폴더 삭제
         try {
             File[] files = folder.listFiles();
-            while(folder.exists()){
+            for(File file : files){
+                file.delete(); // 하위 파일 삭제
+                log.info("파일 {}를 삭제했습니다.", file.getName());
+            }
+            folder.delete(); // 대상폴더 삭제
+            log.info("폴더 {}를 삭제했습니다.", folder.getName());
 
-                for(File file : files){
-                    file.delete(); // 하위 파일 삭제
-                    log.info("파일 {}를 삭제했습니다.", file.getName());
-                }
-            }
-            if(files.length == 0 && folder.isDirectory()){ // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
-                folder.delete(); // 대상폴더 삭제
-                log.info("폴더 {}를 삭제했습니다.", folder.getName());
-            }
         }catch (Exception e) {
             e.getStackTrace();
         }
