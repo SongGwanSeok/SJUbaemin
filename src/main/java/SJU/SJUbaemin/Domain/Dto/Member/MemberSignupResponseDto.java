@@ -1,9 +1,13 @@
 package SJU.SJUbaemin.Domain.Dto.Member;
 
+import SJU.SJUbaemin.Domain.Authority;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,8 +39,8 @@ public class MemberSignupResponseDto {
 
 
 
-//    private Set<AuthorityDto> authorityDtoSet;
-//
+    private Boolean admin;
+
 //    public static MemberDto from(Member user) {
 //        if(user == null) return null;
 //
