@@ -82,7 +82,7 @@ const Admin = () => {
           <button onClick={searchItem}>아이템 조회</button>
           {searchData.map((it) => {
             return (
-              <div>
+              <div key={it.id}>
                 <div>{it.img}</div>
                 <div>{it.name}</div>
                 <button
@@ -119,13 +119,13 @@ const Admin = () => {
           </button>
           <div className="userInfo">
             <div>
-              {Object.keys(userInfo).map((it) => (
-                <div>{it}</div>
+              {Object.keys(userInfo).map((it, idx) => (
+                <div key={idx}>{it}</div>
               ))}
             </div>
             <div>
-              {Object.values(userInfo).map((it) => (
-                <div>{it}</div>
+              {Object.values(userInfo).map((it, idx) => (
+                <div key={idx}>{it}</div>
               ))}
             </div>
           </div>

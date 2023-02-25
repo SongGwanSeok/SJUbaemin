@@ -7,6 +7,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import myInfo from "../utils/myInfo";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,7 +43,9 @@ const Header = () => {
             <FontAwesomeIcon
               icon={faUser}
               onClick={() => {
-                navigate("/mypage");
+                myInfo().then(({ data }) => {
+                  data.id === 1 ? navigate("/admin") : navigate("/mypage");
+                });
               }}
             />
             <MyButton

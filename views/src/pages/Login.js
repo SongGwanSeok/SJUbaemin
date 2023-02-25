@@ -5,8 +5,6 @@ import Header from "../components/Header";
 import MyButton from "../components/MyButton";
 import axios from "axios";
 
-const SERVER_URL = "http://13.125.7.108:8080";
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -15,7 +13,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     const { data } = await axios
-      .post(`${SERVER_URL}/api/authenticate`, {
+      .post(`http://13.125.7.108:8080/api/authenticate`, {
         loginId: userId,
         loginPw: userPw,
       })
