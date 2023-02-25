@@ -44,7 +44,7 @@ const Header = () => {
               icon={faUser}
               onClick={() => {
                 myInfo().then(({ data }) => {
-                  data.id === 1 ? navigate("/admin") : navigate("/mypage");
+                  data.admin ? navigate("/admin") : navigate("/mypage");
                 });
               }}
             />

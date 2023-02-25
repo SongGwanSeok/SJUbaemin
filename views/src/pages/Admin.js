@@ -33,6 +33,7 @@ const Admin = () => {
         <div className="addItem">
           <input
             type="file"
+            multiple
             onChange={(e) => {
               setImg(e.target.files);
             }}

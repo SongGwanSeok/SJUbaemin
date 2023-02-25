@@ -18,8 +18,6 @@ export const DataContext = React.createContext();
 function App() {
   const [data, setData] = useState([]);
 
-  //  --------------- 세배돈 서버 API 연결 -----------------
-
   useEffect(() => {
     getAll().then(({ data }) => setData(data.data));
   }, []);

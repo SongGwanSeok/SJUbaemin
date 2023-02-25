@@ -25,6 +25,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 };
 
 const ItemList = ({ data }) => {
+  console.log(data);
   const [sortType, setSortType] = useState("latest");
 
   return (
