@@ -9,6 +9,7 @@ import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import MyPage from "./pages/MyPage";
 import Admin from "./pages/Admin";
+import SignUp from "./pages/SignUp";
 
 import getAll from "./utils/getAll";
 import "./App.css";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </BrowserRouter>
