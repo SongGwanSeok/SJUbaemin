@@ -56,7 +56,9 @@ const Login = () => {
           <MyButton text="로그인" onClick={handleLogin} />
         </div>
         <div className="newId">
-          <div>회원가입</div>
+          <div className="signUpButton" onClick={() => navigate("/signup")}>
+            회원가입
+          </div>
           <div className="center">아이디 찾기</div>
           <div>비밀번호 찾기</div>
         </div>

@@ -13,6 +13,9 @@ import SignUp from "./pages/SignUp";
 
 import getAll from "./utils/getAll";
 import "./App.css";
+import Search from "./pages/Search";
+import Board from "./pages/Board";
+import BoardDetail from "./pages/BoardDetail";
 
 export const DataContext = React.createContext();
 
@@ -20,7 +23,7 @@ function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getAll().then(({ data }) => setData(data.data));
+    getAll("all").then(({ data }) => setData(data.data));
   }, []);
 
   return (
@@ -29,14 +32,17 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-            <Route path="/mungoo" element={<Mungoo data={data} />} />
-            <Route path="/living" element={<Living data={data} />} />
-            <Route path="/book" element={<Book data={data} />} />
+            <Route path="/mungoo" element={<Mungoo />} />
+            <Route path="/living" element={<Living />} />
+            <Route path="/book" element={<Book />} />
             <Route path="/detail/:id" element={<Detail data={data} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/board" element={<Board />} />
+            <Route path="/boarddetail/:id" element={<BoardDetail />} />
           </Routes>
         </div>
       </BrowserRouter>

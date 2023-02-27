@@ -33,11 +33,18 @@ const Header = () => {
         <Link className="cateLink" to={"/book"}>
           책
         </Link>
+        <Link className="cateLink" to={"/board"}>
+          게시판
+        </Link>
       </div>
 
       <div className="headerRight">
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          onClick={() => navigate("/search")}
+        />
         <FontAwesomeIcon icon={faCartShopping} />
+
         {sessionStorage.getItem("token") ? (
           <span>
             <FontAwesomeIcon
@@ -48,6 +55,7 @@ const Header = () => {
                 });
               }}
             />
+
             <MyButton
               text={"로그아웃"}
               onClick={() => {
@@ -59,6 +67,7 @@ const Header = () => {
         ) : (
           <MyButton text={"로그인"} onClick={() => navigate("/login")} />
         )}
+
         <FontAwesomeIcon icon={faBars} />
       </div>
     </div>

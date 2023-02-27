@@ -2,8 +2,15 @@ import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
 import ItemList from "../components/ItemList.js";
 import PageInfo from "../components/PageInfo.js";
+import { useEffect, useState } from "react";
+import getAll from "../utils/getAll.js";
 
-const Living = ({ data }) => {
+const Living = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getAll("LIVING").then(({ data }) => setData(data.data));
+  }, []);
   return (
     <div className="Living">
       <Header />

@@ -1,9 +1,20 @@
 import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
+
 import ItemList from "../components/ItemList.js";
 import PageInfo from "../components/PageInfo.js";
 
-const Book = ({ data }) => {
+import { useEffect, useState } from "react";
+
+import getAll from "../utils/getAll.js";
+
+const Book = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getAll("BOOK").then(({ data }) => setData(data.data));
+  }, []);
+
   return (
     <div className="Book">
       <Header />

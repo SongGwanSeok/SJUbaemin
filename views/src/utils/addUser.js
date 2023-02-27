@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const addUser = async (id, password, name, email, birth, phone, address) => {
+const addUser = async (id, pass, name, email, birth, phone, address) => {
   axios
     .post(
       `http://13.125.7.108:8080/api/member/signup`,
+
       {
         loginId: id,
-        loginPw: password,
+        loginPw: pass,
         name: name,
         email: email,
         birthday: birth,
@@ -19,8 +20,11 @@ const addUser = async (id, password, name, email, birth, phone, address) => {
         },
       }
     )
-    .catch((res) => {
-      alert(res);
+
+    .catch((err) => {
+      if (err.response.status === 500) {
+        alert("이미 있는 아이디입니다.");
+      }
     });
 };
 

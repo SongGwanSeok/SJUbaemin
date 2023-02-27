@@ -279,6 +279,9 @@
   padding: 0 10px;
   margin: 0 10px;
 }
+.Login .content .newId .signUpButton {
+  cursor: pointer;
+}
 
 /* Admin */
 
@@ -379,4 +382,46 @@
   margin: 10px 0;
   padding: 5px 20px;
   display: block;
+}
+
+/* Search */
+
+.Search .search_wrapper {
+  border-bottom: 3px solid black;
+  width: 500px;
+  margin: 50px auto;
+  /* margin: 50px 0px; */
+}
+
+.Search .search_wrapper .search {
+  font-size: 30px;
+  border: none;
+  width: 94%;
+  padding-bottom: 15px;
+  /* padding-bottom: 50px; */
+}
+.Search .search_wrapper .searchIcon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.Search .search_wrapper .search:focus {
+  outline: none;
+}
+/* Board */
+.Board h2 {
+  border-bottom: 1px solid gray;
+  padding-bottom: 20px;
+}
+
+/* BoardItem */
+
+.BoardItem {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
+  margin: 0 auto;
+  cursor: pointer;
 }
