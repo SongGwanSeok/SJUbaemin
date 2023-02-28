@@ -8,9 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import myInfo from "../utils/myInfo";
+import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [toggle, setToggle] = useState(false);
   return (
     <div className="Header">
       <div className="headerLeft">
@@ -43,7 +46,7 @@ const Header = () => {
           icon={faMagnifyingGlass}
           onClick={() => navigate("/search")}
         />
-        <FontAwesomeIcon icon={faCartShopping} />
+        {/* <FontAwesomeIcon icon={faCartShopping} /> */}
 
         {sessionStorage.getItem("token") ? (
           <span>
@@ -68,8 +71,14 @@ const Header = () => {
           <MyButton text={"로그인"} onClick={() => navigate("/login")} />
         )}
 
-        <FontAwesomeIcon icon={faBars} />
+        <FontAwesomeIcon
+          icon={faBars}
+          onClick={() => {
+            setToggle(true);
+          }}
+        />
       </div>
+      {<Sidebar toggle={toggle} setToggle={setToggle} />}
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Input from "../components/Input";
-import AddUser from "../utils/addUser";
+import addUser from "../utils/addUser";
 
 const SignUp = () => {
   const [id, setId] = useState("");
@@ -15,6 +15,9 @@ const SignUp = () => {
   const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
+
+  const passref = useRef();
+
   return (
     <div className="SignUp">
       <Header />
@@ -26,6 +29,7 @@ const SignUp = () => {
           type="password"
           onChange={setCheckPass}
           placeholder={"비밀번호 확인"}
+          passref={passref}
         />
         <div className="same">
           {pass === "" || checkPass === ""
@@ -41,21 +45,18 @@ const SignUp = () => {
         <Input type="text" onChange={setAddress} placeholder={"주소"} />
 
         <button
-          onClick={() =>
-            AddUser(id, pass, name, email, birth, phone, address)
-              .then((res) => {
-                console.log(res);
-                alert("성공");
-                navigate("/");
-              })
-              .catch((err) => {
-                if (err.response.status === 500) {
-                }
-                if (err.response.status === 401) {
-                  alert("이미 있는 아이디입니다.");
-                }
-              })
-          }
+          onClick={() => {
+            if (pass === checkPass)
+              addUser(id, pass, name, email, birth, phone, address)
+                .then((res) => {
+                  alert("성공");
+                  navigate("/");
+                })
+                .catch((err) => {
+                  alert("아이디가 중복이거나 제대로 입력 안함");
+                });
+            else passref.current.focus();
+          }}
         >
           가입
         </button>

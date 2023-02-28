@@ -49,9 +49,20 @@
   color: #2ac1bc;
 }
 
+.Header .headerRight {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.Header .headerRight span {
+  display: flex;
+  align-items: center;
+}
+
 .Header .headerRight > * {
   margin-left: 20px;
-  font-size: 18px;
+  font-size: 24px;
   cursor: pointer;
 }
 .Header .headerRight .MyButton {
@@ -161,6 +172,7 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   color: gray;
+  cursor: pointer;
 }
 
 /* DetailHeader */
@@ -372,9 +384,11 @@
 .NullInfo > div {
   font-size: 20px;
 }
-/* Input */
 
-.Input {
+/* SignUp */
+
+.SignUp .Input,
+.SignUp .content button {
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 400px;
@@ -382,6 +396,13 @@
   margin: 10px 0;
   padding: 5px 20px;
   display: block;
+}
+
+.SignUp .content button {
+  cursor: pointer;
+  background-color: #2ac1bc;
+  color: white;
+  font-size: 15px;
 }
 
 /* Search */
@@ -423,5 +444,78 @@
   border-bottom: 1px solid lightgray;
   padding: 20px;
   margin: 0 auto;
+  cursor: pointer;
+}
+
+/* Sidebar */
+
+.Sidebar {
+  width: 400px;
+  position: fixed;
+  right: -500px;
+  bottom: 0;
+  top: 0;
+  background-color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.Sidebar.on {
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 100000px;
+  right: 0px;
+}
+
+.Sidebar h1 {
+  cursor: pointer;
+}
+
+.Sidebar .sideContent {
+  padding: 0 35px;
+}
+
+.Sidebar .x_wrapper {
+  font-size: 30px;
+  color: grey;
+  text-align: right;
+  margin-right: 30px;
+  margin-top: 30px;
+}
+
+.Sidebar .x_wrapper .x {
+  cursor: pointer;
+}
+
+.Sidebar .cate {
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar .cate > * {
+  text-decoration: none;
+  margin: 5px 0;
+  font-weight: bold;
+  color: black;
+  font-size: 24px;
+}
+
+.Sidebar .cateTitle {
+  color: grey;
+  font-size: 15px;
+  margin-bottom: 20px;
+  margin-top: 70px;
+}
+
+.Sidebar .cate > *:hover {
+  color: #2ac1bc;
+}
+
+.Sidebar .userName {
+  color: #2ac1bc;
+}
+
+.Sidebar .niceTo {
+  margin-top: 50px;
+  display: inline-block;
+  font-size: 30px;
+  font-weight: bold;
   cursor: pointer;
 }
