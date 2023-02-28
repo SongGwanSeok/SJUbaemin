@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Input from "../components/Input";
 import addUser from "../utils/addUser";
@@ -32,11 +32,13 @@ const SignUp = () => {
           passref={passref}
         />
         <div className="same">
-          {pass === "" || checkPass === ""
-            ? ""
-            : pass === checkPass
-            ? "비밀번호가 일치합니다."
-            : "비밀번호가 일치하지 않습니다."}
+          {pass === "" || checkPass === "" ? (
+            ""
+          ) : pass === checkPass ? (
+            <div style={{ color: "#0d0" }}>"비밀번호가 일치합니다."</div>
+          ) : (
+            <div style={{ color: "#d00" }}>"비밀번호가 일치하지 않습니다."</div>
+          )}
         </div>
         <Input type="text" onChange={setName} placeholder={"이름"} />
         <Input type="text" onChange={setEmail} placeholder={"이메일"} />
