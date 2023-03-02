@@ -34,7 +34,6 @@ public class Board {
     private LocalDateTime upt_date; //수정 날짜
     private String comment;
 
-
     @Builder
     public Board(String title, String content, Member member, Long view_cnt) {
         this.title = title;
@@ -42,6 +41,7 @@ public class Board {
         this.view_cnt = 0L;
         this.member = member;
     }
+
 
     public void update(String title, String content) {
         this.title=title;
