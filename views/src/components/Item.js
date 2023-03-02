@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const Item = ({ imageFilesPath, name, price, id }) => {
   const navigate = useNavigate();
+  console.log(imageFilesPath);
   return (
     <div className="Item">
       <div
