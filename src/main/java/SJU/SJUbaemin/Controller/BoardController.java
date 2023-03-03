@@ -1,6 +1,7 @@
 package SJU.SJUbaemin.Controller;
 
 import SJU.SJUbaemin.Domain.Board;
+import SJU.SJUbaemin.Domain.Dto.Board.BoardListResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardUpdateRequestDto;
@@ -10,10 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/board")
-public class BoardApiController {
+public class BoardController {
 
     private final BoardService boardService;
 
@@ -41,5 +44,10 @@ public class BoardApiController {
     @GetMapping("/findById/{id}")
     public BoardResponseDto findById(@PathVariable Long id) {
         return boardService.findById(id);
+    }
+
+    @GetMapping("/findAll")
+    public List<BoardListResponseDto> findAllDesc() {
+        return boardService.findAllDesc();
     }
 }
