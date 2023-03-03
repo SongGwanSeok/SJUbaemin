@@ -3,13 +3,19 @@ package SJU.SJUbaemin.Domain.Dto.Board;
 import SJU.SJUbaemin.Domain.Board;
 import SJU.SJUbaemin.Domain.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardResponseDto {
 
     private Long id;    //PK
@@ -21,16 +27,4 @@ public class BoardResponseDto {
     private LocalDateTime reg_date; //등록 날짜
     private LocalDateTime upt_date; //수정 날짜
     private String comment; //댓글
-
-    public BoardResponseDto(Board entity) {
-        this.id=entity.getId();
-        this.title = entity.getTitle();
-        this.content=entity.getContent();
-        this.member=entity.getMember();
-        this.view_cnt = entity.getView_cnt();
-        this.comment_cnt = entity.getComment_cnt();
-        this.reg_date = entity.getReg_date();
-        this.upt_date = entity.getUpt_date();
-        this.comment = entity.getComment();
-    }
 }

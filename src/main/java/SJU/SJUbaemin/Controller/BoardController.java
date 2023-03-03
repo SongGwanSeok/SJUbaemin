@@ -1,7 +1,5 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Board;
-import SJU.SJUbaemin.Domain.Dto.Board.BoardListResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardUpdateRequestDto;
@@ -22,27 +20,29 @@ public class BoardController {
 
     @PostMapping("/save/{memberId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<Board> save(
+    public ResponseEntity<BoardResponseDto> save(
             @PathVariable Long memberId,
             @RequestBody BoardSaveRequestDto requestDto) {
         return ResponseEntity.ok(boardService.save(memberId, requestDto));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{boardId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Long update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto requestDto) {
-       return boardService.update(id, requestDto);
+    public ResponseEntity<BoardResponseDto> update(@PathVariable Long boardId, @RequestBody BoardUpdateRequestDto boardRequestDto) {
+        boardService.update(boardId, boardRequestDto);
+        BoardResponseDto boardResponseDto = boardService.findById(boardId);
+        return ResponseEntity.ok(boardResponseDto);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Long delete(@PathVariable Long id) {
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
         boardService.delete(id);
-        return id;
+        return ResponseEntity.ok(id);
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<BoardListResponseDto>> findAll() {
+    public ResponseEntity<List<BoardResponseDto>> findAll() {
 
         return ResponseEntity.ok(boardService.findAllDesc());
     }
@@ -52,8 +52,4 @@ public class BoardController {
         return boardService.findById(id);
     }
 
-    @GetMapping("/findAll")
-    public List<BoardListResponseDto> findAllDesc() {
-        return boardService.findAllDesc();
-    }
 }

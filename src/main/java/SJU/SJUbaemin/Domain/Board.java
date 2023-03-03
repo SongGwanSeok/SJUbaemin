@@ -20,7 +20,7 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)  //ManyToOne은 기본타입이 Eager이므로 변경
+    @ManyToOne //ManyToOne은 기본타입이 Eager이므로 변경
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -47,6 +47,6 @@ public class Board {
     public void update(String title, String content) {
         this.title=title;
         this.content=content;
-        this.upt_date= LocalDateTime.now();
+//        this.upt_date= LocalDateTime.now();
     }
 }

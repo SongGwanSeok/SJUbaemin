@@ -30,18 +30,17 @@ public class MemberService {
      * 권한 정보 포함 회원가입
      */
     @Transactional
-    public Member signup(Member member) {
-        if(memberRepository.findOneWithAuthoritiesByLoginId(member.getLoginId()).orElse(null) != null) {
+    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+        if(memberRepository.findOneWithAuthoritiesByLoginId(memberRequestDto.getLoginId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
+        Member member = memberDtoToEntity(memberRequestDto);
 
-        return memberRepository.save(member);
+        return memberEntityToDto(memberRepository.save(member));
     }
 
     /**
      * loginId를 사용해 어떠한 Member 객체든 권한정보를 가져온다.
-     * @param loginId
-     * @return
      */
 
     @Transactional(readOnly = true) // loginId를 사용해 어떠한 Member 객체든 권한정보를 가져온다.
@@ -60,6 +59,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findByMemberId(Long id) {
         Optional<Member> member = memberRepository.findById(id);
+
 
         return member.get();
     }
@@ -95,7 +95,52 @@ public class MemberService {
         return member.getId();
     }
 
+    /**
+     * memberEntityToDto, memberDtoToEntity 메서드
+     */
+    public MemberResponseDto memberEntityToDto(Member member) {
 
+        Boolean admin = false;
+        Set<Authority> authorities = member.getAuthorities();
+
+        for (Authority authority : authorities) {
+            if (authority.getAuthorityName().equals("ROLE_ADMIN")) {
+                admin = true;
+            }
+        }
+
+        MemberResponseDto memberResponseDto = MemberResponseDto.builder()
+                .id(member.getId())
+                .loginId(member.getLoginId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .birthday(member.getBirthday())
+                .phone(member.getPhone())
+                .address(member.getAddress())
+                .admin(admin)
+                .build();
+
+        return memberResponseDto;
+    }
+
+
+    private Member memberDtoToEntity(MemberRequestDto memberDto) {
+        Authority authority = Authority.builder()
+                .authorityName("ROLE_USER")
+                .build();
+
+        return Member.builder()
+                .loginId(memberDto.getLoginId())
+                .loginPw(passwordEncoder.encode(memberDto.getLoginPw()))
+                .name(memberDto.getName())
+                .email(memberDto.getEmail())
+                .birthday(memberDto.getBirthday())
+                .phone(memberDto.getPhone())
+                .address(memberDto.getAddress())
+                .authorities(Collections.singleton(authority))
+                .activated(true)
+                .build();
+    }
 
 
 }

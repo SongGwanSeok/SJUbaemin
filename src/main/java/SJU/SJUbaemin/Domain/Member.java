@@ -46,9 +46,6 @@ public class Member {
     )
     private Set<Authority> authorities;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Board> boards;
-
     public void update(MemberRequestDto memberDto) {
         this.loginId = memberDto.getLoginId();
         this.loginPw = memberDto.getLoginPw();
