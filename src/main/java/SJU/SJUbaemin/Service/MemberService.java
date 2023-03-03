@@ -1,8 +1,8 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Authority;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupResponseDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberResponseDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import SJU.SJUbaemin.Util.SecurityUtil;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,29 +30,19 @@ public class MemberService {
      * 권한 정보 포함 회원가입
      */
     @Transactional
-    public Member signup(MemberSignupRequestDto memberDto) {
-        if(memberRepository.findOneWithAuthoritiesByLoginId(memberDto.getLoginId()).orElse(null) != null) {
+    public Member signup(Member member) {
+        if(memberRepository.findOneWithAuthoritiesByLoginId(member.getLoginId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
 
-        Authority authority = Authority.builder()
-                .authorityName("ROLE_USER")
-                .build();
-
-        Member member = Member.builder()
-                .loginId(memberDto.getLoginId())
-                .loginPw(passwordEncoder.encode(memberDto.getLoginPw()))
-                .name(memberDto.getName())
-                .email(memberDto.getEmail())
-                .birthday(memberDto.getBirthday())
-                .phone(memberDto.getPhone())
-                .address(memberDto.getAddress())
-                .authorities(Collections.singleton(authority))
-                .activated(true)
-                .build();
-
         return memberRepository.save(member);
     }
+
+    /**
+     * loginId를 사용해 어떠한 Member 객체든 권한정보를 가져온다.
+     * @param loginId
+     * @return
+     */
 
     @Transactional(readOnly = true) // loginId를 사용해 어떠한 Member 객체든 권한정보를 가져온다.
     public Optional<Member> getMemberWithAuthorities(String loginId) {
@@ -69,6 +60,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findByMemberId(Long id) {
         Optional<Member> member = memberRepository.findById(id);
+
         return member.get();
     }
 
@@ -86,7 +78,7 @@ public class MemberService {
      * 회원 정보 수정
      */
     @Transactional
-    public Long update(Long memberId, MemberSignupRequestDto memberDto) {
+    public Long update(Long memberId, MemberRequestDto memberDto) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> {
             throw new IllegalArgumentException("찾을 수 없는 id입니다.");
         });
@@ -102,5 +94,8 @@ public class MemberService {
         member.update(memberDto);
         return member.getId();
     }
+
+
+
 
 }

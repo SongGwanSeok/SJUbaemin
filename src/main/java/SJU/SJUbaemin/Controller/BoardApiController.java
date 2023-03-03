@@ -1,12 +1,16 @@
 package SJU.SJUbaemin.Controller;
 
+import SJU.SJUbaemin.Domain.Dto.Board.BoardListResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardUpdateRequestDto;
 import SJU.SJUbaemin.Service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,6 +38,12 @@ public class BoardApiController {
     public Long delete(@PathVariable Long id) {
         boardService.delete(id);
         return id;
+    }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<BoardListResponseDto>> findAll() {
+
+        return ResponseEntity.ok(boardService.findAllDesc());
     }
 
     @GetMapping("/findById/{id}")

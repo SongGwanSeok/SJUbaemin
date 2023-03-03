@@ -1,8 +1,8 @@
 package SJU.SJUbaemin.Controller;
 
 import SJU.SJUbaemin.Domain.Authority;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupResponseDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberResponseDto;
 import SJU.SJUbaemin.Domain.Member;
 import SJU.SJUbaemin.Service.MemberService;
 import jakarta.validation.Valid;
@@ -10,10 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.Set;
 
 @RestController
@@ -22,25 +22,28 @@ import java.util.Set;
 @Slf4j
 public class MemberController {
 
+    private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Member> signup(
-            @Valid @RequestBody MemberSignupRequestDto memberDto
+    public ResponseEntity<MemberResponseDto> signup(
+            @Valid @RequestBody MemberRequestDto memberRequestDto
             ) {
-        return ResponseEntity.ok(memberService.signup(memberDto));
+        Member member = memberDtoToEntity(memberRequestDto);
+
+        return ResponseEntity.ok(memberEntityToDto(memberService.signup(member)));
     }
 
     @GetMapping("")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<MemberSignupResponseDto> getMyMemberInfo() {
+    public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
         Member member = memberService.getMyMemberWithAuthorities().get();
         return ResponseEntity.ok(memberEntityToDto(member));
     }
 
     @GetMapping("/{loginId}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<MemberSignupResponseDto> getMemberInfo(@PathVariable String loginId) {
+    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable String loginId) {
         Member member = memberService.getMemberWithAuthorities(loginId).get();
 
         return ResponseEntity.ok(memberEntityToDto(member));
@@ -54,29 +57,26 @@ public class MemberController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<MemberSignupResponseDto> updateMember(@PathVariable("id") Long id,
-                                                                @RequestBody @Valid MemberSignupRequestDto memberDto) {
+    public ResponseEntity<MemberResponseDto> updateMember(@PathVariable("id") Long id,
+                                                          @RequestBody @Valid MemberRequestDto memberDto) {
         memberService.update(id, memberDto);
-        Member findMember = memberService.findByMemberId(id);
-        return ResponseEntity.ok(memberEntityToDto(findMember));
+        return ResponseEntity.ok(memberEntityToDto(memberService.findByMemberId(id)));
     }
 
-    public MemberSignupResponseDto memberEntityToDto(Member member) {
+    public MemberResponseDto memberEntityToDto(Member member) {
 
         Boolean admin = false;
         Set<Authority> authorities = member.getAuthorities();
 
         for (Authority authority : authorities) {
-            log.info("authority : {}", authority.getAuthorityName());
             if (authority.getAuthorityName().equals("ROLE_ADMIN")) {
                 admin = true;
             }
         }
 
-        MemberSignupResponseDto memberResponseDto = MemberSignupResponseDto.builder()
+        MemberResponseDto memberResponseDto = MemberResponseDto.builder()
                 .id(member.getId())
                 .loginId(member.getLoginId())
-                .loginPw(member.getLoginPw())
                 .name(member.getName())
                 .email(member.getEmail())
                 .birthday(member.getBirthday())
@@ -86,6 +86,25 @@ public class MemberController {
                 .build();
 
         return memberResponseDto;
+    }
+
+
+    private Member memberDtoToEntity(MemberRequestDto memberDto) {
+        Authority authority = Authority.builder()
+                .authorityName("ROLE_USER")
+                .build();
+
+        return Member.builder()
+                .loginId(memberDto.getLoginId())
+                .loginPw(passwordEncoder.encode(memberDto.getLoginPw()))
+                .name(memberDto.getName())
+                .email(memberDto.getEmail())
+                .birthday(memberDto.getBirthday())
+                .phone(memberDto.getPhone())
+                .address(memberDto.getAddress())
+                .authorities(Collections.singleton(authority))
+                .activated(true)
+                .build();
     }
 
 }

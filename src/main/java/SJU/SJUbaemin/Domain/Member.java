@@ -1,7 +1,6 @@
 package SJU.SJUbaemin.Domain;
 
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Member.MemberSignupResponseDto;
+import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,7 +49,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> boards;
 
-    public void update(MemberSignupRequestDto memberDto) {
+    public void update(MemberRequestDto memberDto) {
         this.loginId = memberDto.getLoginId();
         this.loginPw = memberDto.getLoginPw();
         this.name = memberDto.getName();

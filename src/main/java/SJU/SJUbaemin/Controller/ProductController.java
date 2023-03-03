@@ -5,11 +5,14 @@ import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import SJU.SJUbaemin.Domain.Product;
 import SJU.SJUbaemin.Domain.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jdk.jfr.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +34,19 @@ public class ProductController {
     /**
      * 상품 등록
      */
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseBody
     public ResponseEntity<ProductResponseDto> register(
-            @RequestPart(value = "data") ProductRequestDto productRequestDto,
-            @RequestPart(value = "file") List<MultipartFile> multipartFiles
+            @RequestPart(value = "data", required = false) ProductRequestDto productRequestDto,
+            @RequestPart(value = "file", required = false) List<MultipartFile> multipartFiles,
+            HttpServletRequest request
     ) throws IOException {
+
+        log.info("contents-type : {}", request.getContentType());
+        log.info("multipart : {}", multipartFiles.get(0).getContentType());
+        log.info("multipart : {}", multipartFiles);
+
 
         Product product = productService.register(productRequestDto, multipartFiles);
         List<String> pathList = product.getProductImages().stream().map(i -> i.getPath()).collect(Collectors.toList());
