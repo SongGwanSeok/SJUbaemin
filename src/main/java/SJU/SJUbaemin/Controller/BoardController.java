@@ -1,5 +1,6 @@
 package SJU.SJUbaemin.Controller;
 
+import SJU.SJUbaemin.Domain.Board;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardListResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
@@ -15,22 +16,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/board")
-public class BoardApiController {
+public class BoardController {
 
     private final BoardService boardService;
 
     @PostMapping("/save/{memberId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public Long save(
+    public ResponseEntity<Board> save(
             @PathVariable Long memberId,
             @RequestBody BoardSaveRequestDto requestDto) {
-        return boardService.save(memberId, requestDto);
+        return ResponseEntity.ok(boardService.save(memberId, requestDto));
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Long update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto requestDto) {
-        return boardService.update(id, requestDto);
+       return boardService.update(id, requestDto);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -49,5 +50,10 @@ public class BoardApiController {
     @GetMapping("/findById/{id}")
     public BoardResponseDto findById(@PathVariable Long id) {
         return boardService.findById(id);
+    }
+
+    @GetMapping("/findAll")
+    public List<BoardListResponseDto> findAllDesc() {
+        return boardService.findAllDesc();
     }
 }

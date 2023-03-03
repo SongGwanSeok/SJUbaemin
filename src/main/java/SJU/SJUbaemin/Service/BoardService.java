@@ -27,9 +27,9 @@ public class BoardService {
      * 게시글 생성
      */
     @Transactional
-    public Long save(Long memberId, BoardSaveRequestDto boardSaveRequestDto) {
+    public Board save(Long memberId, BoardSaveRequestDto boardSaveRequestDto) {
         Member member = memberService.findByMemberId(memberId);
-        return boardRepository.save(boardSaveRequestDto.toEntity(member)).getId();
+        return boardRepository.save(boardSaveRequestDto.toEntity(member));
     }
 
     /**
@@ -42,8 +42,7 @@ public class BoardService {
         );
 
         board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-
-        return id;
+        return board.getId();
     }
 
     /**
