@@ -3,7 +3,7 @@ import { useState } from "react";
 import Item from "./Item";
 
 const sortOptionList = [
-  { value: "latest", name: "최신순" },
+  // { value: "latest", name: "최신순" },
   { value: "highPrice", name: "높은가격순" },
   { value: "lowPrice", name: "낮은가격순" },
 ];
@@ -25,7 +25,22 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 };
 
 const ItemList = ({ data }) => {
-  const [sortType, setSortType] = useState("latest");
+  const [sortType, setSortType] = useState("highPrice");
+
+  const getProcessItemList = () => {
+    const compare = (a, b) => {
+      if (sortType === "highPrice") {
+        return parseInt(b.price) - parseInt(a.price); //양수 반환
+      } else {
+        return parseInt(a.price) - parseInt(b.price); //음수 반환
+      }
+    };
+
+    const copyList = JSON.parse(JSON.stringify(data));
+
+    const sortedList = copyList.sort(compare);
+    return sortedList;
+  };
 
   return (
     <div className="ItemList">
@@ -35,7 +50,7 @@ const ItemList = ({ data }) => {
         optionList={sortOptionList}
       />
       <div className="Item_wrapper">
-        {data.map((it) => (
+        {getProcessItemList().map((it) => (
           <Item key={it.id} {...it} />
         ))}
       </div>
