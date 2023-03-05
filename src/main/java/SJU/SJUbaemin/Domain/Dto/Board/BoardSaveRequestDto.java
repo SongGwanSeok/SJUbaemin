@@ -1,7 +1,7 @@
 package SJU.SJUbaemin.Domain.Dto.Board;
 
-import SJU.SJUbaemin.Domain.Board;
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Board.Board;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

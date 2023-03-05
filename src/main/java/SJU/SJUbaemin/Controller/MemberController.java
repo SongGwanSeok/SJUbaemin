@@ -2,7 +2,7 @@ package SJU.SJUbaemin.Controller;
 
 import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Member.MemberResponseDto;
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import SJU.SJUbaemin.Service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

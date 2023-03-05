@@ -1,14 +1,10 @@
 package SJU.SJUbaemin.Domain.Dto.Board;
 
-import SJU.SJUbaemin.Domain.Board;
-import SJU.SJUbaemin.Domain.Member;
-import jakarta.persistence.*;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 

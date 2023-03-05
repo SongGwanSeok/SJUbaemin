@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain;
+package SJU.SJUbaemin.Domain.Entity.Product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

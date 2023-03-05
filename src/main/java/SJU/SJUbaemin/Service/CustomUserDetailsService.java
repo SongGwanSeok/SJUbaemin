@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Service;
 
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;

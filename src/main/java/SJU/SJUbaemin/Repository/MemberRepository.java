@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Repository;
 
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

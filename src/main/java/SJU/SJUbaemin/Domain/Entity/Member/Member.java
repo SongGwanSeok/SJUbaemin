@@ -1,11 +1,10 @@
-package SJU.SJUbaemin.Domain;
+package SJU.SJUbaemin.Domain.Entity.Member;
 
 import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity

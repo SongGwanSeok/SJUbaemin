@@ -1,4 +1,4 @@
-package SJU.SJUbaemin.Domain;
+package SJU.SJUbaemin.Domain.Entity.Product;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -2,12 +2,11 @@ package SJU.SJUbaemin.Controller;
 
 import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
-import SJU.SJUbaemin.Domain.Product;
-import SJU.SJUbaemin.Domain.ProductType;
+import SJU.SJUbaemin.Domain.Entity.Product.Product;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jdk.jfr.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

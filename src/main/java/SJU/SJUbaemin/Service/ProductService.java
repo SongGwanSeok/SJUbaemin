@@ -1,12 +1,10 @@
 package SJU.SJUbaemin.Service;
 
 import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
-import SJU.SJUbaemin.Domain.Product;
-import SJU.SJUbaemin.Domain.ProductImage;
-import SJU.SJUbaemin.Domain.ProductType;
-import SJU.SJUbaemin.Repository.ProductImageRepository;
+import SJU.SJUbaemin.Domain.Entity.Product.Product;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductImage;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import SJU.SJUbaemin.Repository.ProductRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

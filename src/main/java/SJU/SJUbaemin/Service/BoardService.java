@@ -1,10 +1,10 @@
 package SJU.SJUbaemin.Service;
 
-import SJU.SJUbaemin.Domain.Board;
+import SJU.SJUbaemin.Domain.Entity.Board.Board;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardSaveRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardResponseDto;
 import SJU.SJUbaemin.Domain.Dto.Board.BoardUpdateRequestDto;
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import SJU.SJUbaemin.Repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

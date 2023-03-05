@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Repository;
 
-import SJU.SJUbaemin.Domain.Board;
+import SJU.SJUbaemin.Domain.Entity.Board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

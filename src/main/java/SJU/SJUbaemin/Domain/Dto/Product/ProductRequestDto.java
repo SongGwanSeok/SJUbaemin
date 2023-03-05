@@ -1,6 +1,6 @@
 package SJU.SJUbaemin.Domain.Dto.Product;
 
-import SJU.SJUbaemin.Domain.ProductType;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;

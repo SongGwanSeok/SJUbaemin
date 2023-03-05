@@ -1,7 +1,7 @@
 package SJU.SJUbaemin.Repository;
 
-import SJU.SJUbaemin.Domain.Product;
-import SJU.SJUbaemin.Domain.ProductType;
+import SJU.SJUbaemin.Domain.Entity.Product.Product;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

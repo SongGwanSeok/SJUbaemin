@@ -1,7 +1,6 @@
-package SJU.SJUbaemin.Domain;
+package SJU.SJUbaemin.Domain.Entity.Product;
 
 import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

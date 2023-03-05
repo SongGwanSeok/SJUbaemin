@@ -1,9 +1,9 @@
 package SJU.SJUbaemin.Service;
 
-import SJU.SJUbaemin.Domain.Authority;
+import SJU.SJUbaemin.Domain.Entity.Member.Authority;
 import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Member.MemberResponseDto;
-import SJU.SJUbaemin.Domain.Member;
+import SJU.SJUbaemin.Domain.Entity.Member.Member;
 import SJU.SJUbaemin.Repository.MemberRepository;
 import SJU.SJUbaemin.Util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
