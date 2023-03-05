@@ -19,35 +19,59 @@ const Admin = () => {
   const [searchData, setSearchData] = useState([]);
   const [userId, setUserId] = useState();
   const [userInfo, setUserInfo] = useState({});
-  const [src, setSrc] = useState("");
 
-  const addProduct = (byteString) => {
-    axios
-      .post(
-        `http://13.125.7.108:8080/api/product/enroll`,
-        {
+  const addProduct = (formData) => {
+    axios.post(`http://13.125.7.108:8080/api/product/enroll`, formData, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        "Content-Type": `multipart/form-data`,
+      },
+    });
+  };
+
+  const handlingDataForm = async (dataURI) => {
+    // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+    const byteString = atob(dataURI.split(",")[1]);
+
+    // Blob를 구성하기 위한 준비, 이 내용은 저도 잘 이해가 안가서 기술하지 않았습니다.
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ia], {
+      type: "image/jpeg",
+    });
+    const file = new File([blob], "image.jpg");
+
+    // 위 과정을 통해 만든 image폼을 FormData에 넣어줍니다.
+    // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야합니다.
+    const formData = new FormData();
+    formData.append("file", file);
+
+    // 필요시 더 추가합니다.
+    formData.append(
+      "data",
+      new Blob([
+        JSON.stringify({
           name: name,
           price: price,
           type: type,
           content: "content",
           quantity: 100,
-          image: byteString,
-        },
+        }),
         {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        setSrc(data.image);
+          type: "application/json",
+        },
+      ])
+    );
 
-        console.log(src);
-      });
+    addProduct(formData);
   };
 
   const actionImgCompress = async () => {
     console.log("압축 시작");
+
     const fileSrc = img[0];
 
     const options = {
@@ -63,11 +87,9 @@ const Admin = () => {
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
         // 변환 완료!
-
         const base64data = reader.result;
         // formData 만드는 함수
-        // const byteString = base64data.split(",")[1];
-        addProduct(base64data);
+        handlingDataForm(base64data);
       };
     } catch (error) {
       console.log(error);
@@ -95,7 +117,6 @@ const Admin = () => {
             }}
           />
           <br />
-          <img src={src} />
           <input
             type="text"
             placeholder="상품명"

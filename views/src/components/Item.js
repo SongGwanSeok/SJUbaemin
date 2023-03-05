@@ -11,8 +11,8 @@ const Item = ({ imageFilesPath, name, price, id }) => {
         }}
       >
         <img
-          src={`http://13.125.7.108:8080/${imageFilesPath[0].slice(
-            imageFilesPath[0].indexOf("image")
+          src={`http://13.125.7.108:8080/${imageFilesPath.slice(
+            imageFilesPath.indexOf("image")
           )}`}
         />
         <div className="itemText">
