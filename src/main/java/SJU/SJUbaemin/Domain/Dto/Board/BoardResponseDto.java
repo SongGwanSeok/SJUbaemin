@@ -1,6 +1,8 @@
 package SJU.SJUbaemin.Domain.Dto.Board;
 
+import SJU.SJUbaemin.Domain.Entity.Board.Board;
 import SJU.SJUbaemin.Domain.Entity.Member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,4 +25,11 @@ public class BoardResponseDto {
     private LocalDateTime reg_date; //등록 날짜
     private LocalDateTime upt_date; //수정 날짜
     private String comment; //댓글
+
+    public BoardResponseDto(Board b) {
+        id = b.getId();
+        member = b.getMember();
+        title = b.getTitle();
+        content = b.getContent();
+    }
 }

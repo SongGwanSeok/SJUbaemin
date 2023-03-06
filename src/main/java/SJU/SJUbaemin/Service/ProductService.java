@@ -1,21 +1,16 @@
 package SJU.SJUbaemin.Service;
 
-import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollResponseDto;
 import SJU.SJUbaemin.Domain.Entity.Product.Product;
-import SJU.SJUbaemin.Domain.Entity.Product.ProductImage;
 import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import SJU.SJUbaemin.Repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -25,14 +20,55 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-
-    private final String uploadPath = "src/main/resources/static/images/";
+//    private final String uploadPath = "src/main/resources/static/images/";
 
 
     /**
-     * 상품 등록
+     * 상품 등록 (base64 방식)
      */
+    @Transactional
+    public ProductEnrollResponseDto enroll(ProductEnrollRequestDto productEnrollRequestDto) {
+        validationDuplicateProductNameEnroll(productEnrollRequestDto);
+
+        Product product = productDtoToEntity(productEnrollRequestDto);
+        Product savedProduct = productRepository.save(product);
+        Product findProduct = productRepository.findOne(savedProduct.getId());
+
+        return productEntityToDto(findProduct);
+
+    }
+
+    /**
+     * product EntityToDto, DtoToEntity
+     */
+    private static ProductEnrollResponseDto productEntityToDto(Product findProduct)  {
+        return ProductEnrollResponseDto.builder()
+                .id(findProduct.getId())
+                .image(new String(findProduct.getImage(), StandardCharsets.UTF_8))
+                .content(findProduct.getContent())
+                .type(findProduct.getType())
+                .name(findProduct.getName())
+                .price(findProduct.getPrice())
+                .quantity(findProduct.getQuantity())
+                .build();
+    }
+
+    private Product productDtoToEntity(ProductEnrollRequestDto productEnrollRequestDto) {
+        return Product.builder()
+                .image(productEnrollRequestDto.getImage().getBytes(StandardCharsets.UTF_8))
+                .type(productEnrollRequestDto.getType())
+                .name(productEnrollRequestDto.getName())
+                .content(productEnrollRequestDto.getContent())
+                .price(productEnrollRequestDto.getPrice())
+                .quantity(productEnrollRequestDto.getQuantity())
+                .build();
+    }
+
+    /**
+     * 상품등록 (이미지 파일) 실패 ㅠㅠ
+     */
+    /*
+
     @Transactional
     public Product register(ProductRequestDto productRequestDto, List<MultipartFile> multipartFiles) throws IOException {
         //상품 이름 겹치는 경우 삭제
@@ -45,7 +81,6 @@ public class ProductService {
                 .quantity(productRequestDto.getQuantity())
                 .content(productRequestDto.getContent())
                 .type(productRequestDto.getType())
-                .productImages(productImages)
                 .build();
 
         if (multipartFiles.isEmpty()) {
@@ -97,10 +132,12 @@ public class ProductService {
         }
         product.addImages(productImages);
 
-        Product savedProduct = productRepository.save(product);
+        Product savedProduct = productDtoToEntity(product);
 
         return savedProduct;
     }
+
+     */
 
     /**
      * 상품 삭제
@@ -110,6 +147,7 @@ public class ProductService {
     public void deregister(Long productId) {
         Product product = productRepository.findOne(productId);
 
+        /*
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
         String absolutePath = new File("").getAbsolutePath() + "/";
         String path = "src/main/resources/static/images/";
@@ -129,6 +167,8 @@ public class ProductService {
         }catch (Exception e) {
             e.getStackTrace();
         }
+
+         */
 
         productRepository.delete(product);
     }
@@ -154,14 +194,23 @@ public class ProductService {
      * 상품 수정
      */
     @Transactional
-    public void update (Long productId, ProductRequestDto productDto) {
+    public void update (Long productId, ProductEnrollRequestDto productDto) {
         Product findProduct = productRepository.findOne(productId);
         findProduct.change(productDto);
     }
     
 
     //product가 있는지 확인
+    /*
     private void validationDuplicateProductName(ProductRequestDto productRequestDto) {
+        List<Product> products = productRepository.findByName(productRequestDto.getName());
+        if (!products.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 상품입니다."); // 예외처리
+        }
+    }
+    */
+
+    private void validationDuplicateProductNameEnroll(ProductEnrollRequestDto productRequestDto) {
         List<Product> products = productRepository.findByName(productRequestDto.getName());
         if (!products.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 상품입니다."); // 예외처리

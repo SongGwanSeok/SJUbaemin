@@ -11,12 +11,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductRequestDto {
-
+public class ProductEnrollResponseDto {
+    private Long id;
     private String name;
     private int price;
     private Long quantity;
     private String content;
+    private String image;
 
     @Enumerated(EnumType.STRING)
     private ProductType type;

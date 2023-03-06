@@ -1,23 +1,21 @@
 package SJU.SJUbaemin.Controller;
 
-import SJU.SJUbaemin.Domain.Dto.Product.ProductRequestDto;
-import SJU.SJUbaemin.Domain.Dto.Product.ProductResponseDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollRequestDto;
+import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollResponseDto;
 import SJU.SJUbaemin.Domain.Entity.Product.Product;
 import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import SJU.SJUbaemin.Service.ProductService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +31,23 @@ public class ProductController {
     /**
      * 상품 등록
      */
-    @PostMapping(value = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/enroll")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<ProductEnrollResponseDto> enroll(
+            @RequestBody @Valid ProductEnrollRequestDto productEnrollRequestDto
+            ){
+        ProductEnrollResponseDto productEnrollResponseDto = productService.enroll(productEnrollRequestDto);
+        return ResponseEntity.ok(productEnrollResponseDto);
+    }
+
+
+    /**
+     * 상품 등록
+     */
+
+    /*
+
+    @PostMapping(value = "/register")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<ProductResponseDto> register(
@@ -41,10 +55,6 @@ public class ProductController {
             @RequestPart(value = "file", required = false) List<MultipartFile> multipartFiles,
             HttpServletRequest request
     ) throws IOException {
-
-        log.info("contents-type : {}", request.getContentType());
-        log.info("multipart : {}", multipartFiles.get(0).getContentType());
-        log.info("multipart : {}", multipartFiles);
 
 
         Product product = productService.register(productRequestDto, multipartFiles);
@@ -55,6 +65,8 @@ public class ProductController {
         return ResponseEntity.ok(productResponseDto);
     }
 
+     */
+
 
     /**
      * 상품 목록 전체
@@ -62,11 +74,12 @@ public class ProductController {
     @GetMapping("/all")
     public Result<List> findAll() {
         List<Product> productsAll = productService.findProductsAll();
-        List<ProductResponseDto> collect = productsAll.stream()
-                .map(p -> new ProductResponseDto(
-                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType(),
-                        p.getProductImages().stream().map(productImage -> productImage.getPath()).collect(Collectors.toList())
-                        )
+        List<ProductEnrollResponseDto> collect = productsAll.stream()
+                .map(p -> {return new ProductEnrollResponseDto(
+                                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(),
+                                        new String(p.getImage(), StandardCharsets.UTF_8), p.getType()
+                                        );
+                        }
                 )
                 .collect(Collectors.toList());
 
@@ -79,13 +92,14 @@ public class ProductController {
     @GetMapping("/type/{type}")
     public Result<List> findType(@PathVariable("type") ProductType type) {
         List<Product> productsCategory = productService.findProductsCategory(type);
-        List<ProductResponseDto> collect = productsCategory.stream()
-                .map(p -> new ProductResponseDto(
-                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getType(),
-                        p.getProductImages().stream().map(productImage -> productImage.getPath()).collect(Collectors.toList())
-                        )
-                )
-                .collect(Collectors.toList());
+
+        List<ProductEnrollResponseDto> collect = productsCategory.stream()
+                .map(p -> {return new ProductEnrollResponseDto(
+                                    p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(),
+                                    new String(p.getImage(), StandardCharsets.UTF_8), p.getType()
+                            );
+                        }
+                ).collect(Collectors.toList());
 
         return new Result<>(collect.size(), collect);
     }
@@ -95,9 +109,9 @@ public class ProductController {
      */
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<ProductResponseDto> updateProduct(
+    public ResponseEntity<ProductEnrollResponseDto> updateProduct(
             @PathVariable("id") Long id,
-            @RequestBody @Valid ProductRequestDto request
+            @RequestBody @Valid ProductEnrollRequestDto request
     ){
         productService.update(id, request);
         Product product = productService.findOne(id);
@@ -126,14 +140,15 @@ public class ProductController {
         private T data;
     }
 
-    public ProductResponseDto productEntityToDto(Product product) {
-        return ProductResponseDto.builder()
+    public ProductEnrollResponseDto productEntityToDto(Product product) {
+        return ProductEnrollResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
                 .content(product.getContent())
                 .quantity(product.getQuantity())
                 .type(product.getType())
+                .image(new String(product.getImage(), StandardCharsets.UTF_8))
                 .build();
     }
 

@@ -1,10 +1,13 @@
 package SJU.SJUbaemin.Domain.Entity.Member;
 
 import SJU.SJUbaemin.Domain.Dto.Member.MemberRequestDto;
+import SJU.SJUbaemin.Domain.Entity.Board.Board;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Member {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -36,6 +38,10 @@ public class Member {
     @JsonIgnore
     @Column(name = "activated")
     private boolean activated;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Board> boardList = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(

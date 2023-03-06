@@ -80,6 +80,12 @@ public class BoardService {
                 ).collect(Collectors.toList());
     }
 
+    public List<BoardResponseDto> findWithMember() {
+        return boardRepository.findWithMember().stream()
+                .map(b -> new BoardResponseDto(b))
+                .collect(Collectors.toList());
+    }
+
     /**
      * EntityToDto, DtoToEntity 메서드
      */

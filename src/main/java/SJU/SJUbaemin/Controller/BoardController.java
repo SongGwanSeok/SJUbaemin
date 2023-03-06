@@ -44,7 +44,13 @@ public class BoardController {
     @GetMapping("/findAll")
     public ResponseEntity<List<BoardResponseDto>> findAll() {
 
+
         return ResponseEntity.ok(boardService.findAllDesc());
+    }
+    @GetMapping("/findAll/member")
+    public ResponseEntity<List<BoardResponseDto>> findAllWithMember() {
+
+        return ResponseEntity.ok(boardService.findWithMember());
     }
 
     @GetMapping("/findById/{id}")

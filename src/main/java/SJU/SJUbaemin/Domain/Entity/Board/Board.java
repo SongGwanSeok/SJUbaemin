@@ -20,7 +20,7 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-    @ManyToOne //ManyToOne은 기본타입이 Eager이므로 변경
+    @ManyToOne(fetch = FetchType.LAZY) //ManyToOne은 기본타입이 Eager이므로 변경
     @JoinColumn(name = "member_id")
     private Member member;
 

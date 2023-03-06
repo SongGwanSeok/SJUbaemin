@@ -70,7 +70,8 @@ public class SecurityConfig {
                         "/api/product/all", // 상품 목록 전체
                         "/api/product/type/**", // 상품 타입 검색
                         "/api/board/findById/{id}", // 게시판 글 조회
-                        "/api/board/findAll"
+                        "/api/board/findAll",
+                        "/api/board/findAll/member"
                 ).permitAll()
                 .anyRequest().authenticated()
 
