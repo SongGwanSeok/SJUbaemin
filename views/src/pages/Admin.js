@@ -19,60 +19,6 @@ const Admin = () => {
   const [searchData, setSearchData] = useState([]);
   const [userId, setUserId] = useState();
   const [userInfo, setUserInfo] = useState({});
-  const [src, setSrc] = useState("");
-
-  const addProduct = (byteString) => {
-    axios
-      .post(
-        `http://13.125.7.108:8080/api/product/enroll`,
-        {
-          name: name,
-          price: price,
-          type: type,
-          content: "content",
-          quantity: 100,
-          image: byteString,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        setSrc(data.image);
-
-        console.log(src);
-      });
-  };
-
-  const actionImgCompress = async () => {
-    console.log("압축 시작");
-    const fileSrc = img[0];
-
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
-    try {
-      const compressedFile = await imageCompression(fileSrc, options);
-
-      // FileReader 는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해주는 Web API
-      const reader = new FileReader();
-      reader.readAsDataURL(compressedFile);
-      reader.onloadend = () => {
-        // 변환 완료!
-
-        const base64data = reader.result;
-        // formData 만드는 함수
-        // const byteString = base64data.split(",")[1];
-        addProduct(base64data);
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const searchItem = () => {
     setSearchData(
@@ -95,7 +41,6 @@ const Admin = () => {
             }}
           />
           <br />
-          <img src={src} />
           <input
             type="text"
             placeholder="상품명"
