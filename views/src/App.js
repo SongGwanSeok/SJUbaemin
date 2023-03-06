@@ -11,6 +11,7 @@ import MyPage from "./pages/MyPage";
 import Admin from "./pages/Admin";
 import SignUp from "./pages/SignUp";
 
+import addItem from "./utils/addItem";
 import getAll from "./utils/getAll";
 import "./App.css";
 import Search from "./pages/Search";
@@ -26,8 +27,13 @@ function App() {
     getAll("all").then(({ data }) => setData(data.data));
   }, []);
 
+  const onAddItem = (img, name, price, type) => {
+    addItem(img, name, price, type);
+    getAll("all").then(({ data }) => setData(data.data));
+  };
+
   return (
-    <DataContext.Provider value={data}>
+    <DataContext.Provider value={data} onAddItem={onAddItem}>
       <BrowserRouter>
         <div className="App">
           <Routes>

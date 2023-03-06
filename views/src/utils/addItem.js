@@ -24,8 +24,7 @@ const postItem = (name, price, type, base64data) => {
       name: name,
       price: price,
       type: type,
-      content: "content",
-      quantity: 100,
+      content: ["img1", "img2", "img3"],
       image: base64data,
     },
     {

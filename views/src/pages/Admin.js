@@ -2,12 +2,11 @@ import { useState, useContext } from "react";
 import { DataContext } from "../App";
 
 import Header from "../components/Header";
-import addItem from "../utils/addItem";
 import removeItem from "../utils/removeItem";
 import checkUserInfo from "../utils/checkUserInfo";
 
 const Admin = () => {
-  const data = useContext(DataContext);
+  const { data, onAddItem } = useContext(DataContext);
 
   const [img, setImg] = useState();
   const [name, setName] = useState();
@@ -65,7 +64,7 @@ const Admin = () => {
           <br />
           <button
             onClick={() => {
-              addItem(img, name, price, type);
+              onAddItem(img, name, price, type);
             }}
           >
             상품 등록
