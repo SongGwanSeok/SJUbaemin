@@ -1,8 +1,6 @@
 import { useState, useContext } from "react";
 import { DataContext } from "../App";
 
-import imageCompression from "browser-image-compression";
-import axios from "axios";
 import Header from "../components/Header";
 import addItem from "../utils/addItem";
 import removeItem from "../utils/removeItem";
@@ -67,8 +65,7 @@ const Admin = () => {
           <br />
           <button
             onClick={() => {
-              actionImgCompress();
-              // addItem(img, name, price, type);
+              addItem(img, name, price, type);
             }}
           >
             상품 등록
