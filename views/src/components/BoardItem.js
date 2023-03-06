@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BoardItem = ({ title, writer, reg_date }) => {
   const id = 1;

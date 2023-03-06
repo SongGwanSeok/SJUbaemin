@@ -27,13 +27,17 @@ function App() {
     getAll("all").then(({ data }) => setData(data.data));
   }, []);
 
-  const onAddItem = (img, name, price, type) => {
-    addItem(img, name, price, type);
+  useEffect(() => {
+    console.log(`리렌더`);
+  });
+
+  const onAddItem = (img, content, name, price, type) => {
+    addItem(img, content, name, price, type);
     getAll("all").then(({ data }) => setData(data.data));
   };
 
   return (
-    <DataContext.Provider value={data} onAddItem={onAddItem}>
+    <DataContext.Provider value={{ data, onAddItem }}>
       <BrowserRouter>
         <div className="App">
           <Routes>

@@ -311,7 +311,8 @@
   margin: 10px;
 }
 
-.Admin .content input {
+.Admin .content input,
+.Admin .content select {
   margin: 4px;
 }
 

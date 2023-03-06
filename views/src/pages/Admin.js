@@ -7,8 +7,8 @@ import checkUserInfo from "../utils/checkUserInfo";
 
 const Admin = () => {
   const { data, onAddItem } = useContext(DataContext);
-
   const [img, setImg] = useState();
+  const [content, setContent] = useState();
   const [name, setName] = useState();
   const [price, setPrice] = useState();
   const [type, setType] = useState();
@@ -30,14 +30,24 @@ const Admin = () => {
       <Header />
       <div className="content">
         <div className="addItem">
+          <label>대표이미지 : </label>
           <input
             type="file"
-            multiple
             onChange={(e) => {
               setImg(e.target.files);
             }}
           />
           <br />
+          <label>상품설명 : </label>
+          <input
+            type="file"
+            multiple
+            onChange={(e) => {
+              setContent(e.target.files);
+            }}
+          />
+          <br />
+
           <input
             type="text"
             placeholder="상품명"
@@ -54,17 +64,19 @@ const Admin = () => {
             }}
           />
           <br />
-          <input
-            type="text"
-            placeholder="상품 타입"
+          <select
             onChange={(e) => {
               setType(e.target.value);
             }}
-          />
+          >
+            <option value="STATIONERY">문구</option>
+            <option value="LIVING">리빙</option>
+            <option value="BOOK">책</option>
+          </select>
           <br />
           <button
             onClick={() => {
-              onAddItem(img, name, price, type);
+              onAddItem(img, content, name, price, type);
             }}
           >
             상품 등록
