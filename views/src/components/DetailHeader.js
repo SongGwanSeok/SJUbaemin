@@ -14,7 +14,7 @@ const ControlCounter = ({ count, handleDecrease, handleIncrease }) => {
   );
 };
 
-const DetailHeader = ({ img, name, price, id }) => {
+const DetailHeader = ({ image, name, price, id }) => {
   const navigate = useNavigate();
   const [count, setCount] = useState(1);
 
@@ -33,7 +33,7 @@ const DetailHeader = ({ img, name, price, id }) => {
         <div> {price}원 </div>
       </div>
       <div className="detailHeaderCenter">
-        <img src={img} />
+        <img src={image} />
       </div>
       <div className="detailHeaderRight">
         <div>

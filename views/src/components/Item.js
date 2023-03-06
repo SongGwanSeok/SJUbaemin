@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-const Item = ({ imageFilesPath, name, price, id }) => {
+const Item = ({ image, name, price, id }) => {
   const navigate = useNavigate();
-  console.log(imageFilesPath);
+
   return (
     <div className="Item">
       <div
@@ -10,11 +10,7 @@ const Item = ({ imageFilesPath, name, price, id }) => {
           navigate(`/Detail/${id}`);
         }}
       >
-        <img
-          src={`http://13.125.7.108:8080/${imageFilesPath.slice(
-            imageFilesPath.indexOf("image")
-          )}`}
-        />
+        <img src={image} />
         <div className="itemText">
           <div>{name}</div>
           <div>{price}원</div>

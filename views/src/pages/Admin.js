@@ -29,8 +29,6 @@ const Admin = () => {
           name: name,
           price: price,
           type: type,
-          content: "content",
-          quantity: 100,
           image: byteString,
         },
         {
@@ -95,7 +93,6 @@ const Admin = () => {
             }}
           />
           <br />
-          <img src={src} />
           <input
             type="text"
             placeholder="상품명"
