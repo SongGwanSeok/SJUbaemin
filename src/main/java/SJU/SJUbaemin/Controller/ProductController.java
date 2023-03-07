@@ -35,7 +35,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ProductEnrollResponseDto> enroll(
             @RequestBody @Valid ProductEnrollRequestDto productEnrollRequestDto
-            ){
+    ){
         ProductEnrollResponseDto productEnrollResponseDto = productService.enroll(productEnrollRequestDto);
         return ResponseEntity.ok(productEnrollResponseDto);
     }
@@ -74,16 +74,7 @@ public class ProductController {
     @GetMapping("/all")
     public Result<List> findAll() {
         List<Product> productsAll = productService.findProductsAll();
-        List<ProductEnrollResponseDto> collect = productsAll.stream()
-                .map(p -> {return new ProductEnrollResponseDto(
-                                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(),
-                                        new String(p.getImage(), StandardCharsets.UTF_8), p.getType()
-                                        );
-                        }
-                )
-                .collect(Collectors.toList());
-
-        return new Result<>(collect.size(), collect);
+        return getListResult(productsAll);
     }
 
     /**
@@ -93,16 +84,9 @@ public class ProductController {
     public Result<List> findType(@PathVariable("type") ProductType type) {
         List<Product> productsCategory = productService.findProductsCategory(type);
 
-        List<ProductEnrollResponseDto> collect = productsCategory.stream()
-                .map(p -> {return new ProductEnrollResponseDto(
-                                    p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(),
-                                    new String(p.getImage(), StandardCharsets.UTF_8), p.getType()
-                            );
-                        }
-                ).collect(Collectors.toList());
-
-        return new Result<>(collect.size(), collect);
+        return getListResult(productsCategory);
     }
+
 
     /**
      * 상품 정보 수정
@@ -145,11 +129,28 @@ public class ProductController {
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
-                .content(product.getContent())
-                .quantity(product.getQuantity())
+                .content(product.getContent().stream()
+                        .map(c -> new String(c.getContent(), StandardCharsets.UTF_8))
+                        .collect(Collectors.toList()))
                 .type(product.getType())
                 .image(new String(product.getImage(), StandardCharsets.UTF_8))
                 .build();
+    }
+
+    private Result<List> getListResult(List<Product> productsAll) {
+        List<ProductEnrollResponseDto> collect = productsAll.stream()
+                .map(p -> {
+                            return new ProductEnrollResponseDto(
+                                    p.getId(), p.getName(), p.getPrice()
+                                    , p.getContent().stream()
+                                    .map(c -> new String(c.getContent(), StandardCharsets.UTF_8))
+                                    .collect(Collectors.toList())
+                                    , new String(p.getImage(), StandardCharsets.UTF_8), p.getType());
+                        }
+                )
+                .collect(Collectors.toList());
+
+        return new Result<>(collect.size(), collect);
     }
 
 }

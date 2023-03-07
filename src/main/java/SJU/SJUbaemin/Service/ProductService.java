@@ -3,6 +3,7 @@ package SJU.SJUbaemin.Service;
 import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollRequestDto;
 import SJU.SJUbaemin.Domain.Dto.Product.ProductEnrollResponseDto;
 import SJU.SJUbaemin.Domain.Entity.Product.Product;
+import SJU.SJUbaemin.Domain.Entity.Product.ProductContent;
 import SJU.SJUbaemin.Domain.Entity.Product.ProductType;
 import SJU.SJUbaemin.Repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,8 +34,18 @@ public class ProductService {
         validationDuplicateProductNameEnroll(productEnrollRequestDto);
 
         Product product = productDtoToEntity(productEnrollRequestDto);
+
+        List<byte[]> bytes = productEnrollRequestDto.getContent().stream()
+                .map(dto -> dto.getBytes()).collect(Collectors.toList());
+
+        for (byte[] aByte : bytes) {
+            ProductContent productContent = new ProductContent(aByte, product);
+            product.getContent().add(productContent);
+        }
+
         Product savedProduct = productRepository.save(product);
         Product findProduct = productRepository.findOne(savedProduct.getId());
+        log.info("findProduct.getContent :{}", findProduct.getContent().get(0));
 
         return productEntityToDto(findProduct);
 
@@ -45,22 +58,23 @@ public class ProductService {
         return ProductEnrollResponseDto.builder()
                 .id(findProduct.getId())
                 .image(new String(findProduct.getImage(), StandardCharsets.UTF_8))
-                .content(findProduct.getContent())
                 .type(findProduct.getType())
                 .name(findProduct.getName())
                 .price(findProduct.getPrice())
-                .quantity(findProduct.getQuantity())
+                .content(findProduct.getContent().stream()
+                        .map(c -> new String(c.getContent(), StandardCharsets.UTF_8)).collect(Collectors.toList()))
                 .build();
     }
 
     private Product productDtoToEntity(ProductEnrollRequestDto productEnrollRequestDto) {
+
+        List<ProductContent> list = new ArrayList<>();
         return Product.builder()
                 .image(productEnrollRequestDto.getImage().getBytes(StandardCharsets.UTF_8))
                 .type(productEnrollRequestDto.getType())
                 .name(productEnrollRequestDto.getName())
-                .content(productEnrollRequestDto.getContent())
                 .price(productEnrollRequestDto.getPrice())
-                .quantity(productEnrollRequestDto.getQuantity())
+                .content(list)
                 .build();
     }
 

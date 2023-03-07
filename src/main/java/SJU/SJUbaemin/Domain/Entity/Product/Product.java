@@ -23,8 +23,9 @@ public class Product {
 
     private String name;
     private int price;
-    private Long quantity;
-    private String content;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductContent> content;
 
     @Enumerated(EnumType.STRING)
     private ProductType type;
@@ -50,8 +51,6 @@ public class Product {
     public void change(ProductEnrollRequestDto productDto) {
         this.name = productDto.getName();
         this.price = productDto.getPrice();
-        this.quantity = productDto.getQuantity();
-        this.content = productDto.getContent();
         this.type = productDto.getType();
         this.image = productDto.getImage().getBytes(StandardCharsets.UTF_8);
     }

@@ -5,6 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Getter
 @Setter
@@ -15,10 +17,14 @@ public class ProductEnrollResponseDto {
     private Long id;
     private String name;
     private int price;
-    private Long quantity;
-    private String content;
+    private List<String> content;
     private String image;
 
     @Enumerated(EnumType.STRING)
     private ProductType type;
+
+    public <R> ProductEnrollResponseDto(Long id, String name, int price, R collect, String s, ProductType type) {
+
+
+    }
 }
