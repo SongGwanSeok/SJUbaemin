@@ -17,8 +17,8 @@ const addItem = async (img, content, name, price, type) => {
   };
 };
 
-const postItem = (content, name, price, type, base64data) => {
-  return axios.post(
+const postItem = async (content, name, price, type, base64data) => {
+  await axios.post(
     `http://13.125.7.108:8080/api/product/enroll`,
     {
       name: name,

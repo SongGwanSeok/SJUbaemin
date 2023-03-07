@@ -13,6 +13,8 @@ import SignUp from "./pages/SignUp";
 
 import addItem from "./utils/addItem";
 import getAll from "./utils/getAll";
+import removeItem from "./utils/removeItem";
+
 import "./App.css";
 import Search from "./pages/Search";
 import Board from "./pages/Board";
@@ -27,17 +29,26 @@ function App() {
     getAll("all").then(({ data }) => setData(data.data));
   }, []);
 
-  useEffect(() => {
-    console.log(`리렌더`);
-  });
-
-  const onAddItem = (img, content, name, price, type) => {
+  const onAddItem = async (img, content, name, price, type) => {
     addItem(img, content, name, price, type);
-    getAll("all").then(({ data }) => setData(data.data));
+
+    setTimeout(() => {
+      getAll("all").then(({ data }) => {
+        setData(data.data);
+      });
+    }, 500);
+  };
+
+  const onDelete = async (id) => {
+    await removeItem(id);
+
+    getAll("all").then(({ data }) => {
+      setData(data.data);
+    });
   };
 
   return (
-    <DataContext.Provider value={{ data, onAddItem }}>
+    <DataContext.Provider value={{ data, onAddItem, onDelete }}>
       <BrowserRouter>
         <div className="App">
           <Routes>

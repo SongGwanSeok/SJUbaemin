@@ -1,12 +1,16 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { DataContext } from "../App";
 
 import Header from "../components/Header";
-import removeItem from "../utils/removeItem";
 import checkUserInfo from "../utils/checkUserInfo";
 
 const Admin = () => {
-  const { data, onAddItem } = useContext(DataContext);
+  const { data, onAddItem, onDelete } = useContext(DataContext);
+
+  useEffect(() => {
+    searchItem();
+  }, [data]);
+
   const [img, setImg] = useState();
   const [content, setContent] = useState();
   const [name, setName] = useState();
@@ -18,9 +22,13 @@ const Admin = () => {
   const [userInfo, setUserInfo] = useState({});
 
   const searchItem = () => {
+    if (search === "") {
+      setSearchData(data);
+      return;
+    }
     setSearchData(
       data.filter((it) => {
-        if (search !== "") return it.name.includes(search);
+        if (search !== "") return it.name?.includes(search);
       })
     );
   };
@@ -30,7 +38,7 @@ const Admin = () => {
       <Header />
       <div className="content">
         <div className="addItem">
-          <label>대표이미지 : </label>
+          <label>대표이미지</label>
           <input
             type="file"
             onChange={(e) => {
@@ -38,7 +46,9 @@ const Admin = () => {
             }}
           />
           <br />
-          <label>상품설명 : </label>
+          <br />
+
+          <label>상품설명</label>
           <input
             type="file"
             multiple
@@ -46,6 +56,7 @@ const Admin = () => {
               setContent(e.target.files);
             }}
           />
+          <br />
           <br />
 
           <input
@@ -69,6 +80,9 @@ const Admin = () => {
               setType(e.target.value);
             }}
           >
+            <option selected hidden>
+              타입
+            </option>
             <option value="STATIONERY">문구</option>
             <option value="LIVING">리빙</option>
             <option value="BOOK">책</option>
@@ -95,11 +109,12 @@ const Admin = () => {
           {searchData.map((it) => {
             return (
               <div key={it.id}>
-                <div>{it.img}</div>
+                <div>id : {it.id}</div>
+                <img src={it.image} />
                 <div>{it.name}</div>
                 <button
                   onClick={() => {
-                    removeItem(it.id);
+                    onDelete(it.id);
                   }}
                 >
                   삭제
