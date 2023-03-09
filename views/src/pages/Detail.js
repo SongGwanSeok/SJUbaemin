@@ -19,8 +19,10 @@ const Detail = () => {
         <div className="content">
           <DetailHeader {...targetItem} />
           <div className="DetailContent">
+            <div className="tab">
+              <div>상품정보</div>
+            </div>
             {targetItem.content.map((it, idx) => {
-              // return <img src={it.content} />;
               return <img key={idx} src={it} />;
             })}
           </div>

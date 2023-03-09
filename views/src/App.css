@@ -237,9 +237,25 @@
 }
 
 /* DetailContent */
+.Detail .DetailContent .tab {
+  width: 100%;
+  padding: 14px 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 50px;
+}
+
+.Detail .DetailContent .tab div {
+  margin: 0 auto;
+  text-align: center;
+  width: 20%;
+  height: 100%;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 6px 10px;
+}
 
 .Detail .DetailContent {
-  border-top: 1px solid #ddd;
   margin-top: 50px;
   padding-top: 50px;
   display: flex;
@@ -248,7 +264,7 @@
   align-items: center;
 }
 
-.Detail .DetailContent * {
+.Detail .DetailContent > img {
   margin: 10px 0;
 }
 
