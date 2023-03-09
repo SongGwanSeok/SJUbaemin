@@ -4,11 +4,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const ControlCounter = ({ count, handleDecrease, handleIncrease }) => {
+const ControlCounter = ({
+  setCount,
+  count,
+  handleDecrease,
+  handleIncrease,
+}) => {
   return (
     <div className="ControlCounter">
       <MyButton text={"-"} onClick={handleDecrease} />
-      <input value={count} />
+      <input
+        value={count}
+        onChange={(e) => {
+          setCount(e.target.value);
+        }}
+      />
       <MyButton text={"+"} onClick={handleIncrease} />
     </div>
   );
@@ -30,7 +40,7 @@ const DetailHeader = ({ image, name, price, id }) => {
     <div className="DetailHeader">
       <div className="detailHeaderLeft">
         <h2> {name} </h2>
-        <div> {price}원 </div>
+        <div> {price.toLocaleString()}원 </div>
       </div>
       <div className="detailHeaderCenter">
         <img src={image} />
@@ -46,16 +56,17 @@ const DetailHeader = ({ image, name, price, id }) => {
             <div className="controller">
               <ControlCounter
                 count={count}
+                setCount={setCount}
                 handleIncrease={handleIncrease}
                 handleDecrease={handleDecrease}
               />
 
-              <div>{parseInt(price) * count}원</div>
+              <div>{(parseInt(price) * count).toLocaleString()}원</div>
             </div>
           </div>
           <div className="price_wrapper">
             <h4>총 금액</h4>
-            <h3>{parseInt(price) * count}원</h3>
+            <h3>{(parseInt(price) * count).toLocaleString()}원</h3>
           </div>
           <div className="button_wrapper">
             <div className="cart">

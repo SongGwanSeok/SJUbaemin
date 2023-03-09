@@ -25,6 +25,8 @@ export const DataContext = React.createContext();
 function App() {
   const [data, setData] = useState([]);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     getAll("all").then(({ data }) => setData(data.data));
   }, []);
@@ -56,7 +58,7 @@ function App() {
             <Route path="/mungoo" element={<Mungoo />} />
             <Route path="/living" element={<Living />} />
             <Route path="/book" element={<Book />} />
-            <Route path="/detail/:id" element={<Detail data={data} />} />
+            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/admin" element={<Admin />} />

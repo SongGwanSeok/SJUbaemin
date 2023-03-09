@@ -13,7 +13,7 @@ const Item = ({ image, name, price, id }) => {
         <img src={image} />
         <div className="itemText">
           <div>{name}</div>
-          <div>{price}원</div>
+          <div>{price.toLocaleString()}원</div>
         </div>
       </div>
     </div>

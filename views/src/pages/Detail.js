@@ -10,13 +10,22 @@ const Detail = () => {
   const targetItem = data.find((it) => {
     return parseInt(it.id) === parseInt(id);
   });
-  return (
-    <div className="Detail">
-      <Header />
-      <div className="content">
-        <DetailHeader {...targetItem} />
+
+  if (data.length === 0) return null;
+  else
+    return (
+      <div className="Detail">
+        <Header />
+        <div className="content">
+          <DetailHeader {...targetItem} />
+          <div className="DetailContent">
+            {targetItem.content.map((it, idx) => {
+              // return <img src={it.content} />;
+              return <img key={idx} src={it} />;
+            })}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 export default Detail;

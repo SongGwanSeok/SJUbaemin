@@ -180,11 +180,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
+
 .DetailHeader .detailHeaderCenter img {
-  width: 300px;
-  height: 300px;
 }
+
 .DetailHeader .detailHeaderRight .deliInfo {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -233,6 +234,22 @@
   background-color: #2ac1bc;
   color: white;
   font-size: 15px;
+}
+
+/* DetailContent */
+
+.Detail .DetailContent {
+  border-top: 1px solid #ddd;
+  margin-top: 50px;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.Detail .DetailContent * {
+  margin: 10px 0;
 }
 
 /* Login */

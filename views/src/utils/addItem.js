@@ -33,7 +33,8 @@ const postItem = async (name, price, type, base64datas) => {
       name: name,
       price: price,
       type: type,
-      content: base64datas.slice(1),
+      // content: base64datas.slice(1),
+      content: ["content1", "content2"],
       image: base64datas[0],
     },
     {
