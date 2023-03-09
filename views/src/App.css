@@ -149,6 +149,7 @@
 
 .ItemList .Item_wrapper .Item {
   width: 25%;
+  min-width: 310px;
   padding: 30px;
   box-sizing: border-box;
 }
