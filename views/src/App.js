@@ -19,16 +19,21 @@ import "./App.css";
 import Search from "./pages/Search";
 import Board from "./pages/Board";
 import BoardDetail from "./pages/BoardDetail";
+import NewBoard from "./pages/NewBoard";
+import axios from "axios";
+import getBoardAll from "./utils/getBoardAll";
+import removeBoard from "./utils/removeBoard";
+import addBoard from "./utils/addBoard";
 
 export const DataContext = React.createContext();
 
 function App() {
   const [data, setData] = useState([]);
-
-  useEffect(() => {}, []);
+  const [boardData, setBoardData] = useState([]);
 
   useEffect(() => {
     getAll("all").then(({ data }) => setData(data.data));
+    getBoardAll().then(({ data }) => setBoardData(data));
   }, []);
 
   const onAddItem = async (titleImg, contentImg, name, price, type) => {
@@ -49,8 +54,33 @@ function App() {
     });
   };
 
+  const onAddBoard = async (id, title, content) => {
+    await addBoard(id, title, content);
+
+    getBoardAll().then(({ data }) => {
+      setBoardData(data);
+    });
+  };
+
+  const onBoardDelete = async (id) => {
+    await removeBoard(id);
+
+    getBoardAll().then(({ data }) => {
+      setBoardData(data);
+    });
+  };
+
   return (
-    <DataContext.Provider value={{ data, onAddItem, onDelete }}>
+    <DataContext.Provider
+      value={{
+        data,
+        boardData,
+        onAddItem,
+        onDelete,
+        onBoardDelete,
+        onAddBoard,
+      }}
+    >
       <BrowserRouter>
         <div className="App">
           <Routes>
@@ -65,6 +95,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/search" element={<Search />} />
             <Route path="/board" element={<Board />} />
+            <Route path="/newboard" element={<NewBoard />} />
             <Route path="/boarddetail/:id" element={<BoardDetail />} />
           </Routes>
         </div>

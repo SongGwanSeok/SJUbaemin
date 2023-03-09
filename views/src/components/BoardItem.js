@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const BoardItem = ({ title, writer, reg_date }) => {
-  const id = 1;
+const BoardItem = ({ id, title, content, member, reg_date }) => {
   const navigate = useNavigate();
   return (
     <div
@@ -10,9 +9,9 @@ const BoardItem = ({ title, writer, reg_date }) => {
       }}
       className="BoardItem"
     >
-      <div className="title">{"제목"}</div>
-      <div className="writer">{"작성자"}</div>
-      <div className="reg_date">{"날짜"}</div>
+      <div className="title">{title}</div>
+      <div className="writer">{member.name}</div>
+      <div className="reg_date">{reg_date}</div>
     </div>
   );
 };

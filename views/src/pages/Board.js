@@ -1,21 +1,32 @@
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { DataContext } from "../App";
 import BoardItem from "../components/BoardItem";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Board = () => {
-  axios
-    .get(`http://13.125.7.108:8080/api/board/findAll`)
-    .then(({ data }) => console.log(data));
+  const navigate = useNavigate();
+
+  const { boardData } = useContext(DataContext);
+
   return (
     <div className="Board">
       <Header />
       <div className="content">
         <h2>게시판</h2>
-        <BoardItem />
-        <BoardItem />
-        <BoardItem />
-        <BoardItem />
+        {boardData.map((it) => {
+          return <BoardItem key={it.id} {...it} />;
+        })}
+
+        <button
+          onClick={() => {
+            navigate("/newboard");
+          }}
+        >
+          글쓰기
+        </button>
       </div>
       <Footer />
     </div>
