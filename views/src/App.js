@@ -20,7 +20,6 @@ import Search from "./pages/Search";
 import Board from "./pages/Board";
 import BoardDetail from "./pages/BoardDetail";
 import NewBoard from "./pages/NewBoard";
-import axios from "axios";
 import getBoardAll from "./utils/getBoardAll";
 import removeBoard from "./utils/removeBoard";
 import addBoard from "./utils/addBoard";

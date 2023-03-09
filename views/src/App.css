@@ -184,6 +184,7 @@
 }
 
 .DetailHeader .detailHeaderCenter img {
+  width: 300px;
 }
 
 .DetailHeader .detailHeaderRight .deliInfo {
