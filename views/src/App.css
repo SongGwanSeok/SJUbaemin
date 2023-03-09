@@ -162,6 +162,7 @@
 }
 
 .ItemList .Item_wrapper .Item img {
+  height: 300px;
   width: 100%;
 }
 
@@ -185,6 +186,7 @@
 
 .DetailHeader .detailHeaderCenter img {
   width: 300px;
+  height: 300px;
 }
 
 .DetailHeader .detailHeaderRight .deliInfo {
