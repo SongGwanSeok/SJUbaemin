@@ -80,9 +80,7 @@ const Admin = () => {
               setType(e.target.value);
             }}
           >
-            <option selected hidden>
-              타입
-            </option>
+            <option hidden>타입</option>
             <option value="STATIONERY">문구</option>
             <option value="LIVING">리빙</option>
             <option value="BOOK">책</option>
@@ -108,10 +106,11 @@ const Admin = () => {
           <button onClick={searchItem}>아이템 조회</button>
           {searchData.map((it) => {
             return (
-              <div key={it.id}>
-                <div>id : {it.id}</div>
-                <img src={it.image} />
-                <div>{it.name}</div>
+              <div className="remove_wrapper" key={it.id}>
+                <div>
+                  <div>id : {it.id}</div>
+                  <div>{it.name}</div>
+                </div>
                 <button
                   onClick={() => {
                     onDelete(it.id);

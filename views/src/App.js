@@ -29,8 +29,8 @@ function App() {
     getAll("all").then(({ data }) => setData(data.data));
   }, []);
 
-  const onAddItem = async (img, content, name, price, type) => {
-    addItem(img, content, name, price, type);
+  const onAddItem = async (titleImg, contentImg, name, price, type) => {
+    addItem(titleImg, contentImg, name, price, type);
 
     setTimeout(() => {
       getAll("all").then(({ data }) => {

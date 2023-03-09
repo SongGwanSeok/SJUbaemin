@@ -13,7 +13,7 @@ import ItemList from "../components/ItemList";
 const Search = () => {
   const [searchData, setSearchData] = useState([]);
   const [search, setSearch] = useState("");
-  const data = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const searchItem = () => {
     setSearchData(

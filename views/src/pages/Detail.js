@@ -6,7 +6,7 @@ import DetailHeader from "../components/DetailHeader";
 
 const Detail = () => {
   const { id } = useParams();
-  const data = React.useContext(DataContext);
+  const { data } = React.useContext(DataContext);
   const targetItem = data.find((it) => {
     return parseInt(it.id) === parseInt(id);
   });
