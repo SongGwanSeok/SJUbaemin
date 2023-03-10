@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardSaveRequestDto {
@@ -14,12 +16,16 @@ public class BoardSaveRequestDto {
     private String title;
     private String content;
     private Member member;
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
 
     @Builder
-    public BoardSaveRequestDto(String title, String content, Member member) {
+    public BoardSaveRequestDto(String title, String content, Member member,LocalDateTime createDate,LocalDateTime modifiedDate) {
         this.title = title;
-        this.content=content;
-        this.member=member;
+        this.content = content;
+        this.member = member;
+        this.createDate = createDate;
+        this.modifiedDate = modifiedDate;
     }
 
     public Board toEntity(Member member) {

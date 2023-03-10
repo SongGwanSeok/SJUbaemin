@@ -15,4 +15,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query("select b from Board b join fetch b.member")
     List<Board> findWithMember();
+    List<Board> findByTitleContaining(String keyword);
 }

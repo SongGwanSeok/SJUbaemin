@@ -25,7 +25,6 @@ public class BoardController {
             @RequestBody BoardSaveRequestDto requestDto) {
         return ResponseEntity.ok(boardService.save(memberId, requestDto));
     }
-
     @PutMapping("/update/{boardId}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<BoardResponseDto> update(@PathVariable Long boardId, @RequestBody BoardUpdateRequestDto boardRequestDto) {
@@ -56,6 +55,14 @@ public class BoardController {
     @GetMapping("/findById/{id}")
     public BoardResponseDto findById(@PathVariable Long id) {
         return boardService.findById(id);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<BoardResponseDto>> search(@RequestParam(value = "keyword") String keyword){
+
+        List<BoardResponseDto> searchList = boardService.search(keyword);
+
+        return ResponseEntity.ok(searchList);
     }
 
 }
