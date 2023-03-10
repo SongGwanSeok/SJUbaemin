@@ -23,8 +23,4 @@ public class ProductEnrollResponseDto {
     @Enumerated(EnumType.STRING)
     private ProductType type;
 
-    public <R> ProductEnrollResponseDto(Long id, String name, int price, R collect, String s, ProductType type) {
-
-
-    }
 }

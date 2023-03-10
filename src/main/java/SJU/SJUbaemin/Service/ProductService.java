@@ -35,17 +35,13 @@ public class ProductService {
 
         Product product = productDtoToEntity(productEnrollRequestDto);
 
-        List<byte[]> bytes = productEnrollRequestDto.getContent().stream()
-                .map(dto -> dto.getBytes()).collect(Collectors.toList());
-
-        for (byte[] aByte : bytes) {
-            ProductContent productContent = new ProductContent(aByte, product);
-            product.getContent().add(productContent);
+        for (String content : productEnrollRequestDto.getContent()) {
+            ProductContent productContent = new ProductContent(content, product);
+            product.addContent(productContent);
         }
 
         Product savedProduct = productRepository.save(product);
         Product findProduct = productRepository.findOne(savedProduct.getId());
-        log.info("findProduct.getContent :{}", findProduct.getContent().get(0));
 
         return productEntityToDto(findProduct);
 
@@ -55,14 +51,16 @@ public class ProductService {
      * product EntityToDto, DtoToEntity
      */
     private static ProductEnrollResponseDto productEntityToDto(Product findProduct)  {
+        List<String> content = findProduct.getContent().stream()
+                .map(c -> new String(c.getContent(), StandardCharsets.UTF_8)).collect(Collectors.toList());
+
         return ProductEnrollResponseDto.builder()
                 .id(findProduct.getId())
                 .image(new String(findProduct.getImage(), StandardCharsets.UTF_8))
                 .type(findProduct.getType())
                 .name(findProduct.getName())
                 .price(findProduct.getPrice())
-                .content(findProduct.getContent().stream()
-                        .map(c -> new String(c.getContent(), StandardCharsets.UTF_8)).collect(Collectors.toList()))
+                .content(content)
                 .build();
     }
 

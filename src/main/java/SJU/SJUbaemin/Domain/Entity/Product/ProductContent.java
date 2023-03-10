@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,7 @@ public class ProductContent {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(length = 100000)
     private byte[] content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,12 +28,13 @@ public class ProductContent {
     @JsonIgnore
     private Product product;
 
-    public ProductContent(byte[] bytes, Product product) {
-        this.content = bytes;
+    public ProductContent(String content, Product product) {
+        this.content = content.getBytes(StandardCharsets.UTF_8);
         this.product = product;
     }
 
-    public ProductContent(byte[] bytes) {
-        this.content = bytes;
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

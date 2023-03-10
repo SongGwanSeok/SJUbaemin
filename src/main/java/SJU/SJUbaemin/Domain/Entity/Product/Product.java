@@ -25,7 +25,7 @@ public class Product {
     private int price;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductContent> content;
+    private List<ProductContent> content = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ProductType type;
@@ -48,16 +48,18 @@ public class Product {
         review.setProduct(this);
     }
 
+    public void addContent (ProductContent content) {
+        this.content.add(content);
+        content.setProduct(this);
+
+    }
+
     public void change(ProductEnrollRequestDto productDto) {
         this.name = productDto.getName();
         this.price = productDto.getPrice();
         this.type = productDto.getType();
         this.image = productDto.getImage().getBytes(StandardCharsets.UTF_8);
     }
-    public void addImages (List<ProductImage> productImages) {
-        productImages.stream().forEach(p -> p.setProduct(this));
-    }
-
 
 
 }
