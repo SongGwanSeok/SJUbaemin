@@ -12,4 +12,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query("SELECT b FROM Board b ORDER BY b.id DESC")  //내림차순 정렬?
     List<Board> findAllDesc();
+
+    List<Board> findByTitleContaining(String keyword);
 }
