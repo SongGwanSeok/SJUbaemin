@@ -31,14 +31,15 @@ const NewBoard = () => {
             setTitle(e.target.value);
           }}
           value={title}
+          className="title"
         />
-        <input
-          type="text"
-          placeholder="내용"
+        <textarea
+          placeholder="내용을 입력하세요"
           onChange={(e) => {
             setContent(e.target.value);
           }}
           value={content}
+          className="boardContent"
         />
 
         <button

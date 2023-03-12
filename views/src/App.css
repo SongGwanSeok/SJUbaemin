@@ -149,6 +149,7 @@
 
 .ItemList .Item_wrapper .Item {
   width: 25%;
+  min-width: 310px;
   padding: 30px;
   box-sizing: border-box;
 }
@@ -558,4 +559,51 @@
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
+}
+
+/* BoardDetail */
+.BoardDetail .content .title {
+}
+
+/* NewBoard */
+
+.NewBoard .title {
+  border: none;
+  width: 70%;
+  height: 20px;
+
+  font-size: 20px;
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+
+  display: block;
+  margin: 10px auto;
+}
+
+.NewBoard .boardContent {
+  border: 1px solid gray;
+  width: 70%;
+  height: 300px;
+
+  font-size: 15px;
+  display: block;
+  margin: 0px auto;
+
+  resize: none;
+}
+.NewBoard .title:focus {
+  outline: none;
+}
+
+.NewBoard .boardContent:focus {
+  outline: none;
+}
+
+.NewBoard .content button {
+  cursor: pointer;
+  font-size: 15px;
+  padding: 5px 10px;
+  margin: 10px 15%;
+  display: block;
+  float: right;
 }
