@@ -11,6 +11,22 @@ const Board = () => {
   const navigate = useNavigate();
 
   const { boardData } = useContext(DataContext);
+  const [search, setSearch] = useState("");
+  const [searchData, setSearchData] = useState(boardData);
+
+  useEffect(() => {
+    setSearchData(boardData);
+  }, [boardData]);
+
+  const handleSearch = () => {
+    axios
+      .get(`http://13.125.7.108:8080/api/board/search?keyword=${search}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then(({ data }) => setSearchData(data));
+  };
 
   return (
     <div className="Board">
@@ -23,9 +39,12 @@ const Board = () => {
           }}
           buttonText="글쓰기"
           type="mint"
+          handleSearch={handleSearch}
+          setSearch={setSearch}
+          isBoard={true}
         />
         <div className="boardContent">
-          {boardData.map((it) => {
+          {searchData.map((it) => {
             return <BoardItem key={it.id} {...it} />;
           })}
         </div>
