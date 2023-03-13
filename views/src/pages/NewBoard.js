@@ -16,9 +16,16 @@ const NewBoard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    myInfo().then(({ data }) => {
-      setId(data.id);
-    });
+    myInfo()
+      .then(({ data }) => {
+        setId(data.id);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          alert("로그인 후 글 작성이 가능합니다");
+          navigate(`/login`);
+        }
+      });
   }, []);
 
   const handleSubmit = () => {

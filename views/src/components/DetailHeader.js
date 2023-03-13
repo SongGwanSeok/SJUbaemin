@@ -73,12 +73,18 @@ const DetailHeader = ({ image, name, price, id }) => {
               <MyButton
                 text={<FontAwesomeIcon icon={faCartShopping} />}
                 onClick={() => {
-                  navigate("/");
+                  alert(`장바구니에 담겼습니다`);
                 }}
               />
             </div>
             <div className="buy">
-              <MyButton text={"바로 구매하기"} />
+              <MyButton
+                text={"바로 구매하기"}
+                onClick={() => {
+                  alert(`구매 완료`);
+                  navigate(`/`);
+                }}
+              />
             </div>
           </div>
         </div>
