@@ -32,7 +32,9 @@ function App() {
 
   useEffect(() => {
     getAll("all").then(({ data }) => setData(data.data));
-    getBoardAll().then(({ data }) => setBoardData(data));
+    getBoardAll().then(({ data }) => {
+      setBoardData(data);
+    });
   }, []);
 
   const onAddItem = async (titleImg, contentImg, name, price, type) => {

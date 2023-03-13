@@ -563,11 +563,28 @@
   cursor: pointer;
 }
 
-/* BoardDetail */
-.BoardDetail .content .title {
+/* NewBoard */
+
+.NewBoard .contentHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  align-items: center;
 }
 
-/* NewBoard */
+.NewBoard .contentHeader button {
+  background-color: #2ac1bc;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+
+  border-radius: 50px;
+  padding: 5px 15px;
+  color: white;
+  font-weight: bold;
+}
 
 .NewBoard .title {
   border: none;
@@ -576,20 +593,21 @@
 
   font-size: 20px;
   border-bottom: 1px solid gray;
-  padding-bottom: 10px;
-
+  padding-bottom: 20px;
+  font-weight: bold;
   display: block;
   margin: 10px auto;
 }
 
 .NewBoard .boardContent {
-  border: 1px solid gray;
+  border: none;
   width: 70%;
   height: 300px;
-
-  font-size: 15px;
+  font-size: 18px;
   display: block;
   margin: 0px auto;
+  font-family: "Pretendard-Regular";
+  padding-top: 30px;
 
   resize: none;
 }
@@ -599,13 +617,4 @@
 
 .NewBoard .boardContent:focus {
   outline: none;
-}
-
-.NewBoard .content button {
-  cursor: pointer;
-  font-size: 15px;
-  padding: 5px 10px;
-  margin: 10px 15%;
-  display: block;
-  float: right;
 }

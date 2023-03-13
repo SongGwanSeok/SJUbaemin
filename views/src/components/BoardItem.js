@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const BoardItem = ({ id, title, content, member, reg_date }) => {
+const BoardItem = ({ id, title, content, member, createDate }) => {
   const navigate = useNavigate();
   return (
     <div
@@ -11,7 +11,7 @@ const BoardItem = ({ id, title, content, member, reg_date }) => {
     >
       <div className="title">{title}</div>
       <div className="writer">{member.name}</div>
-      <div className="reg_date">{reg_date}</div>
+      <div className="createDate">{new Date(createDate).toLocaleString()}</div>
     </div>
   );
 };
