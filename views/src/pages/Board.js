@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
+import BoardHeader from "../components/BoardHeader";
 import BoardItem from "../components/BoardItem";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -15,18 +16,17 @@ const Board = () => {
     <div className="Board">
       <Header />
       <div className="content">
-        <h2>게시판</h2>
-        {boardData.map((it) => {
-          return <BoardItem key={it.id} {...it} />;
-        })}
-
-        <button
+        <BoardHeader
+          text="게시판"
           onClick={() => {
             navigate("/newboard");
           }}
-        >
-          글쓰기
-        </button>
+          buttonText="글쓰기"
+          type="mint"
+        />
+        {boardData.map((it) => {
+          return <BoardItem key={it.id} {...it} />;
+        })}
       </div>
       <Footer />
     </div>

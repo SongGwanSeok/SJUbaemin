@@ -472,22 +472,23 @@
 .Search .search_wrapper .search:focus {
   outline: none;
 }
-/* Board */
-.Board h2 {
-  border-bottom: 1px solid gray;
-  padding-bottom: 20px;
-}
 
 /* BoardItem */
 
 .BoardItem {
   width: 80%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   border-bottom: 1px solid lightgray;
   padding: 20px;
   margin: 0 auto;
   cursor: pointer;
+  /* flex-wrap: wrap; */
+}
+
+.BoardItem > * {
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 /* Sidebar */
@@ -565,27 +566,6 @@
 
 /* NewBoard */
 
-.NewBoard .contentHeader {
-  display: flex;
-  justify-content: space-between;
-  width: 70%;
-  margin: 0 auto;
-  margin-bottom: 50px;
-  align-items: center;
-}
-
-.NewBoard .contentHeader button {
-  background-color: #2ac1bc;
-  border: none;
-  cursor: pointer;
-  height: 30px;
-
-  border-radius: 50px;
-  padding: 5px 15px;
-  color: white;
-  font-weight: bold;
-}
-
 .NewBoard .title {
   border: none;
   width: 70%;
@@ -618,3 +598,33 @@
 .NewBoard .boardContent:focus {
   outline: none;
 }
+/* BoardHeader */
+
+.BoardHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+.BoardHeader button {
+  border: none;
+  cursor: pointer;
+  height: 30px;
+
+  border-radius: 50px;
+  padding: 5px 15px;
+  color: white;
+  font-weight: bold;
+}
+
+.BoardHeader .mint {
+  background-color: #2ac1bc;
+}
+.BoardHeader .red {
+  background-color: #cd3352;
+}
+
+/

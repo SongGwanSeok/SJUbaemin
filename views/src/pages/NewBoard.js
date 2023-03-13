@@ -5,6 +5,7 @@ import myInfo from "../utils/myInfo";
 import addBoard from "../utils/addBoard";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
+import BoardHeader from "../components/BoardHeader";
 
 const NewBoard = () => {
   const { onAddBoard } = useContext(DataContext);
@@ -20,23 +21,24 @@ const NewBoard = () => {
     });
   }, []);
 
+  const handleSubmit = () => {
+    onAddBoard(id, title, content).then(() => {
+      alert("저장 되었습니다");
+      navigate("/board");
+    });
+  };
+
   return (
     <div className="NewBoard">
       <Header />
       <div className="content">
-        <div className="contentHeader">
-          <h2 className="contentTitle">글쓰기</h2>
-          <button
-            onClick={() => {
-              onAddBoard(id, title, content).then(() => {
-                alert("저장 되었습니다");
-                navigate("/board");
-              });
-            }}
-          >
-            저장
-          </button>
-        </div>
+        <BoardHeader
+          text="글쓰기"
+          onClick={handleSubmit}
+          type="mint"
+          buttonText="저장"
+        />
+
         <div className="content_wrapper">
           <input
             type="text"
