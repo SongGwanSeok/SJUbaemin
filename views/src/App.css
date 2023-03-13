@@ -476,7 +476,7 @@
 /* BoardItem */
 
 .BoardItem {
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
@@ -576,7 +576,7 @@
   padding-bottom: 20px;
   font-weight: bold;
   display: block;
-  margin: 10px auto;
+  margin: 50px auto;
 }
 
 .NewBoard .boardContent {
@@ -598,6 +598,11 @@
 .NewBoard .boardContent:focus {
   outline: none;
 }
+/* Board */
+.Board .boardContent {
+  /* margin-top: 50px; */
+  margin: 50px 15%;
+}
 /* BoardHeader */
 
 .BoardHeader {
@@ -605,7 +610,8 @@
   justify-content: space-between;
   width: 70%;
   margin: 0 auto;
-  margin-bottom: 50px;
+  margin-top: 50px;
+
   align-items: center;
 }
 
@@ -627,4 +633,23 @@
   background-color: #cd3352;
 }
 
-/
+/* BoardDetail */
+
+.BoardHeader h2 {
+  margin: 0;
+}
+
+.BoardDetail .boardMiddle {
+  display: block;
+  width: 70%;
+  margin: 0px auto;
+
+  /* border: 1px solid gray; */
+}
+
+.BoardDetail .createDate {
+  color: #aaa;
+}
+.BoardDetail .boardContent {
+  margin-top: 50px;
+}

@@ -24,9 +24,11 @@ const Board = () => {
           buttonText="글쓰기"
           type="mint"
         />
-        {boardData.map((it) => {
-          return <BoardItem key={it.id} {...it} />;
-        })}
+        <div className="boardContent">
+          {boardData.map((it) => {
+            return <BoardItem key={it.id} {...it} />;
+          })}
+        </div>
       </div>
       <Footer />
     </div>

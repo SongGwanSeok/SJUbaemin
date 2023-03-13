@@ -4,7 +4,6 @@ import { DataContext } from "../App";
 import BoardHeader from "../components/BoardHeader";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import removeBoard from "../utils/removeBoard";
 
 const BoardDetail = () => {
   const { id } = useParams();
@@ -30,10 +29,12 @@ const BoardDetail = () => {
             type="red"
             buttonText="삭제"
           />
-          <div className="createDate">
-            {new Date(targetBoardData.createDate).toLocaleString()}
+          <div className="boardMiddle">
+            <div className="createDate">
+              {new Date(targetBoardData.createDate).toLocaleString()}
+            </div>
+            <div className="boardContent">{targetBoardData.content}</div>
           </div>
-          <div className="boardContent">{targetBoardData.content}</div>
         </div>
         <Footer />
       </div>
